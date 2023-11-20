@@ -1,0 +1,27 @@
+{
+  "name": "my-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check-lint": "pnpm exec eslint src/**/*.js",
+    "check-format": "pnpm exec prettier src/**/*.{js,css,svelte} --check",
+    "fix-lint": "pnpm exec eslint --fix src/**/*.js",
+    "fix-format": "pnpm exec prettier src/**/*.{js,css,svelte} --write"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.27.4",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-svelte": "^2.30.0",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.0",
+    "prettier-plugin-svelte": "^3.0.0",
+    "svelte": "^4.0.5",
+    "vite": "^4.4.2"
+  },
+  "type": "module"
+}
