@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [sveltekit()],
-  publicDir: "static",
 
   server: {
     port: 3000,
@@ -11,7 +10,6 @@ export default defineConfig({
 
   build: {
     sourcemap: true,
-    outDir: ".svelte",
   },
 
   preview: {

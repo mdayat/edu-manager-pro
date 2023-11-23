@@ -1,38 +1,35 @@
-# create-svelte
+## Preface
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a repository to host our Capstone Project of Dicoding Bootcamp 2023. We choose to use [SvelteKit](https://kit.svelte.dev/) because it offers the flexibility of [SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA). Of course, because the tight of the deadline, we choose to use SvelteKit as our fullstack app to handle both Fron-End and Back-End requirements.
 
-## Creating a project
+## Tech Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+We use plain JavaScript – without type safety support like [TypeScript](https://www.typescriptlang.org/) or [JSDoc](https://jsdoc.app/), and CSS – without CSS frameworks like [Tailwind CSS](https://tailwindcss.com/) – because our team is unfamiliar with those things, so we decided to use plain JavaScript and CSS instead with the help of [Svelte](https://svelte.dev/) SFC (Single File Component) to speed up our development process. As for the package manager, we use [pnpm](https://pnpm.io/) instead of [npm](https://docs.npmjs.com/) for many reasons – you can check this [article](https://pnpm.io/) to help understand our reasons.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Then, what about code styles? For that purpose, we picked up a few tools to help maintain our code consistency. We have [ESLint](https://eslint.org/) which will statically analyze our code to follow best practices. On the other hand, we have [Prettier](https://prettier.io/) to align our code-writing styles. Lastly, we need automation tools to run the previously-mentioned tools. For that reason, we use [Husky](https://typicode.github.io/husky/) which will run every event we defined before on top of the git hooks.
 
-# create a new project in my-app
-npm create svelte@latest my-app
+## Getting Started
+
+### Clone The Project
+
+Run this command to clone the repository to your local computer:
+
+```shell
+git clone https://github.com/mdayat/edu-manager-pro.git
 ```
 
-## Developing
+### Install The Project
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+After cloning the repository, install all the dependencies with pnpm:
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```shell
+pnpm install
 ```
 
-## Building
+If you haven't yet pnpm, run this command to install pnpm:
 
-To create a production version of your app:
-
-```bash
-npm run build
+```shell
+npm install -g pnpm
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+If you prefer another methods to install pnpm, please refer to this [document](https://pnpm.io/installation).
