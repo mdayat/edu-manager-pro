@@ -16,25 +16,7 @@
 <!-- Loading google client library and handling authentication -->
 <svelte:head>
   <script src="https://accounts.google.com/gsi/client" async></script>
-  <script>
-    function handleGoogleSignIn(res) {
-      fetch("api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(res.credential),
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((tokens) => {
-          localStorage.setItem("access_token", tokens.accessToken);
-          localStorage.setItem("refresh_token", tokens.refreshToken);
-          window.location.replace(window.location.origin);
-        });
-    }
-  </script>
+  <script src="src/lib/googleSignIn.js"></script>
 </svelte:head>
 
 <h1>Hello From Auth Page</h1>
