@@ -14,7 +14,7 @@
   },
 
   "rules": {
-    // Adding rules to ignore global funtion for google auth callback
+    // Adding rules to ignore global function for google auth callback
     "no-unused-vars": ["error", { "varsIgnorePattern": "handleGoogleSignIn" }]
   }
 }
