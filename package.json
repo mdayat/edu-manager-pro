@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "prisma generate && vite build",
     "preview": "vite preview",
     "check-lint": "pnpm eslint 'src/**/*.{js,svelte}'",
     "check-format": "pnpm prettier 'src/**/*.{js,css,svelte}' --check",
