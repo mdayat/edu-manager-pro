@@ -1,3 +1,4 @@
+// This global function is used for google auth callback
 function handleGoogleSignIn(res) {
   fetch("api/auth/login", {
     method: "POST",
@@ -15,9 +16,3 @@ function handleGoogleSignIn(res) {
       window.location.replace(window.location.origin);
     });
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("g_id_onload")
-    .addEventListener("click", handleGoogleSignIn);
-});

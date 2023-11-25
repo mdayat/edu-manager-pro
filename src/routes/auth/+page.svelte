@@ -16,7 +16,7 @@
 <!-- Loading google client library and handling authentication -->
 <svelte:head>
   <script src="https://accounts.google.com/gsi/client" async></script>
-  <script src="src/lib/googleSignIn.js"></script>
+  <script src="googleSignIn.js"></script>
 </svelte:head>
 
 <h1>Hello From Auth Page</h1>

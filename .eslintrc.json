@@ -11,5 +11,10 @@
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module"
+  },
+
+  "rules": {
+    // Adding rules to ignore global funtion for google auth callback
+    "no-unused-vars": ["error", { "varsIgnorePattern": "handleGoogleSignIn" }]
   }
 }
