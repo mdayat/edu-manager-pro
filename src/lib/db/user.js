@@ -1,13 +1,63 @@
 import { prisma } from "./prismaClient";
 
-const createUser = (data) => {
+const getUser = (userId) => {
   const promise = new Promise((resolve, reject) => {
-    prisma.user.create({ data, select: { id: true } }).catch((err) => {
-      reject(err);
-    });
+    prisma.user
+      .findFirst({ where: { id: userId } })
+      .then((user) => {
+        resolve(user);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 
   return promise;
 };
 
-export { createUser };
+const createUser = (data) => {
+  const promise = new Promise((resolve, reject) => {
+    prisma.user
+      .create({ data })
+      .then((user) => {
+        resolve(user);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  return promise;
+};
+
+const updateUser = (userId, newValue) => {
+  const promise = new Promise((resolve, reject) => {
+    prisma.user
+      .update({ where: { id: userId }, data: newValue })
+      .then((user) => {
+        resolve(user);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  return promise;
+};
+
+const deleteUser = (userId) => {
+  const promise = new Promise((resolve, reject) => {
+    prisma.user
+      .delete({ where: { id: userId } })
+      .then((user) => {
+        resolve(user);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+  return promise;
+};
+
+export { getUser, createUser, updateUser, deleteUser };

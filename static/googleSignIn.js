@@ -10,9 +10,9 @@ function handleGoogleSignIn(res) {
     .then((res) => {
       return res.json();
     })
-    .then((tokens) => {
-      localStorage.setItem("access_token", tokens.accessToken);
-      localStorage.setItem("refresh_token", tokens.refreshToken);
+    .then((token) => {
+      localStorage.setItem("access_token", token.access);
+      localStorage.setItem("refresh_token", token.refresh);
       window.location.replace(window.location.origin);
     });
 }
