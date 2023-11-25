@@ -1,25 +1,32 @@
 <script>
-  const hasLoggedIn = () => {
-    const hasAccessToken =
-      localStorage.getItem("access_token") !== null ? true : false;
-    const hasRefreshToken =
-      localStorage.getItem("refresh_token") !== null ? true : false;
-    return hasAccessToken && hasRefreshToken;
-  };
+  import Loading from "../lib/components/Loading.svelte";
+  import { handleLogOut, hasLoggedIn, loading } from "../lib/auth";
+
+  let isLoading;
+  loading.subscribe((state) => {
+    isLoading = state;
+  });
 
   const isLoggedIn = hasLoggedIn();
   if (isLoggedIn === false) {
     window.location.replace(window.location.origin + "/auth");
+  } else {
+    loading.set(false);
   }
 </script>
 
-<h1>Hello From Home Page</h1>
+{#if isLoading}
+  <Loading />
+{:else}
+  <h1>Hello From Home Page</h1>
+  <button type="button" on:click={handleLogOut}>Log Out</button>
 
-<style>
-  h1 {
-    color: salmon;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-  }
-</style>
+  <style>
+    h1 {
+      color: salmon;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+    }
+  </style>
+{/if}

@@ -1,60 +1,68 @@
 <script>
-  const hasLoggedIn = () => {
-    const hasAccessToken =
-      localStorage.getItem("access_token") !== null ? true : false;
-    const hasRefreshToken =
-      localStorage.getItem("refresh_token") !== null ? true : false;
-    return hasAccessToken && hasRefreshToken;
-  };
+  import Loading from "../../lib/components/Loading.svelte";
+  import { hasLoggedIn, loading } from "../../lib/auth";
+
+  let isLoading;
+  loading.subscribe((state) => {
+    isLoading = state;
+  });
 
   const isLoggedIn = hasLoggedIn();
   if (isLoggedIn === true) {
     window.location.replace(window.location.origin);
+  } else {
+    loading.set(false);
   }
 </script>
 
 <!-- Loading google client library and handling authentication -->
 <svelte:head>
-  <script src="https://accounts.google.com/gsi/client" async></script>
-  <script src="googleSignIn.js"></script>
+  {#if isLoading === false}
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="googleSignIn.js"></script>
+  {/if}
 </svelte:head>
 
-<h1>Hello From Auth Page</h1>
+{#if isLoading}
+  <Loading />
+{:else}
+  <h1>Hello From Auth Page</h1>
 
-<!-- HTML API for displaying google "Sign In Button" and "One Tap" prompt -->
-<div class="g_container">
-  <div
-    id="g_id_onload"
-    data-client_id={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-    data-context="signin"
-    data-ux_mode="popup"
-    data-callback="handleGoogleSignIn"
-    data-itp_support="true"
-  ></div>
+  <!-- HTML API for displaying google "Sign In Button" and "One Tap" prompt -->
+  <div class="g_container">
+    <div
+      id="g_id_onload"
+      data-client_id={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+      data-context="signin"
+      data-ux_mode="popup"
+      data-callback="handleGoogleSignIn"
+      data-itp_support="true"
+    ></div>
 
-  <div
-    class="g_id_signin"
-    data-type="standard"
-    data-shape="pill"
-    data-theme="outline"
-    data-text="continue_with"
-    data-size="large"
-    data-logo_alignment="left"
-  ></div>
-</div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-shape="pill"
+      data-theme="outline"
+      data-text="continue_with"
+      data-size="large"
+      data-logo_alignment="left"
+    ></div>
+  </div>
 
-<style>
-  /* The default dimension of google "Sign In Button" */
-  .g_container {
-    box-sizing: border-box;
-    width: 220px;
-    height: 44px;
-  }
+  <style>
+    /* The default dimension of google "Sign In Button" */
+    .g_container {
+      box-sizing: border-box;
+      width: 220px;
+      height: 44px;
+    }
 
-  h1 {
-    color: salmon;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-  }
-</style>
+    h1 {
+      color: salmon;
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+    }
+  </style>
+{/if}
