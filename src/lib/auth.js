@@ -10,7 +10,7 @@ const hasLoggedIn = () => {
   return hasAccessToken && hasRefreshToken;
 };
 
-const handleLogOut = () => {
+const logOut = () => {
   const refreshToken = localStorage.getItem("refresh_token");
 
   fetch("api/auth/logout", {
@@ -24,4 +24,4 @@ const handleLogOut = () => {
   });
 };
 
-export { loading, hasLoggedIn, handleLogOut };
+export { loading, hasLoggedIn, logOut };

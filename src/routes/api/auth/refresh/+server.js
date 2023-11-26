@@ -68,7 +68,7 @@ export const GET = ({ request }) => {
           });
       })
       .catch((err) => {
-        // Reject request when refresh token is not valid
+        // Reject request when refresh token is invalid
         resolve(
           new Response(JSON.stringify(err.message), {
             status: 401,
