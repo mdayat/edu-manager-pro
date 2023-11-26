@@ -8,7 +8,7 @@ import { createUser, getUser, updateUser } from "../../../../lib/db/user.js";
 const client = new OAuth2Client();
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-export const POST = async ({ request }) => {
+export const POST = ({ request }) => {
   const promise = new Promise((resolve) => {
     request
       .json()
@@ -126,4 +126,14 @@ export const POST = async ({ request }) => {
   });
 
   return promise;
+};
+
+export const fallback = ({ request }) => {
+  return new Response(JSON.stringify(request.method + " Method Not Allowed"), {
+    status: 405,
+    headers: {
+      "Content-Type": "application/json",
+      Allow: "POST",
+    },
+  });
 };

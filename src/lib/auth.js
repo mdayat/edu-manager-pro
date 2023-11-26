@@ -11,9 +11,17 @@ const hasLoggedIn = () => {
 };
 
 const handleLogOut = () => {
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  window.location.replace(window.location.origin + "/auth");
+  const refreshToken = localStorage.getItem("refresh_token");
+
+  fetch("api/auth/logout", {
+    headers: {
+      Authorization: "Bearer " + refreshToken,
+    },
+  }).then(() => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.replace(window.location.origin + "/auth");
+  });
 };
 
 export { loading, hasLoggedIn, handleLogOut };
