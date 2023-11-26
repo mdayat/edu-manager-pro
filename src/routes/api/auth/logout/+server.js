@@ -1,8 +1,8 @@
 import { prisma } from "../../../../lib/db/prismaClient.js";
 
 export const GET = ({ request }) => {
-  const refreshToken = request.headers.get("Authorization");
-  if (refreshToken === null) {
+  // Reject request when authorization header is empty
+  if (request.headers.get("Authorization") === null) {
     return new Response(JSON.stringify("Unauthorized"), {
       status: 401,
       headers: {
@@ -31,6 +31,7 @@ export const GET = ({ request }) => {
         );
       })
       .catch((err) => {
+        // Reject request when failed to update refresh token
         resolve(
           new Response(JSON.stringify(err.message), {
             status: 500,

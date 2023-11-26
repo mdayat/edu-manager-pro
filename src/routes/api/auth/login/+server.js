@@ -23,10 +23,10 @@ export const POST = ({ request }) => {
               createAccessToken(payload.sub),
               createRefreshToken(payload.sub),
             ])
-              .then((tokenValues) => {
+              .then((tokens) => {
                 const token = {
-                  access: tokenValues[0],
-                  refresh: tokenValues[1],
+                  access: tokens[0],
+                  refresh: tokens[1],
                 };
 
                 getUser(payload.sub).then((user) => {
@@ -74,7 +74,7 @@ export const POST = ({ request }) => {
                         );
                       })
                       .catch((err) => {
-                        // Reject request when failed to create a new user
+                        // Reject request when failed to update refresh token
                         resolve(
                           new Response(JSON.stringify(err.message), {
                             status: 500,
