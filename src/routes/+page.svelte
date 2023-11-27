@@ -9,7 +9,7 @@
 
   const getUser = new Promise((resolve, reject) => {
     const accessToken = localStorage.getItem("access_token");
-    fetch("api/users", {
+    fetch("api/users/me", {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
@@ -40,15 +40,15 @@
               // Invalidate access and refresh token if failed to validate refresh token
               logOut();
             })
-            .then((token) => {
+            .then(({ accessToken, refreshToken }) => {
               // Update old access and refresh token with the new one
-              localStorage.setItem("access_token", token.access);
-              localStorage.setItem("refresh_token", token.refresh);
+              localStorage.setItem("access_token", accessToken);
+              localStorage.setItem("refresh_token", refreshToken);
 
               // Get user (again) with the new access token
               fetch("api/users", {
                 headers: {
-                  Authorization: "Bearer " + token.access,
+                  Authorization: "Bearer " + accessToken,
                 },
               })
                 .then((res) => {
@@ -80,10 +80,9 @@
       <li>Account Id: {user.id}</li>
       <li>Account Email: {user.email}</li>
       <li>Account Name: {user.name}</li>
-      <li>Account Picture: {user.picture_url}</li>
-      <li>Account Refresh Token: {user.refresh_token}</li>
+      <li>Account Picture: {user.pictureUrl}</li>
       <li>
-        Your Picture Looks Like: <img src={user.picture_url} alt={user.name} />
+        Your Picture Looks Like: <img src={user.pictureUrl} alt={user.name} />
       </li>
     </ul>
   {:catch msg}

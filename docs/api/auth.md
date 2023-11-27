@@ -28,8 +28,8 @@ Returns JSON object with the following properties:
 
 ```json
 {
-  "access_token": "YOUR_ACCESS_TOKEN",
-  "refresh_token": "YOUR_REFRESH_TOKEN"
+  "access_token": "string",
+  "refresh_token": "string"
 }
 ```
 
@@ -99,8 +99,8 @@ Returns JSON object with the following properties:
 
 ```json
 {
-  "access_token": "YOUR_ACCESS_TOKEN",
-  "refresh_token": "YOUR_REFRESH_TOKEN"
+  "access_token": "string",
+  "refresh_token": "string"
 }
 ```
 

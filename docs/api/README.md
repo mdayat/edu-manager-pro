@@ -24,6 +24,6 @@ An endpoint that performs authentication-related transaction.
 
 ### Users
 
-An endpoint that performs user-related transaction.
+An endpoint to get account information.
 
-1. [Get Specific Users](auth.md#logout): `GET /api/users`
+1. [Get Account Information](users.md#users): `GET /api/users/me`

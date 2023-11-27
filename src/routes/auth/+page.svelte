@@ -11,9 +11,9 @@
       .then((res) => {
         return res.json();
       })
-      .then(({ access_token, refresh_token }) => {
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("refresh_token", refresh_token);
+      .then(({ accessToken, refreshToken }) => {
+        localStorage.setItem("access_token", accessToken);
+        localStorage.setItem("refresh_token", refreshToken);
         window.location.replace(window.location.origin);
       });
   };

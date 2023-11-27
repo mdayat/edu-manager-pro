@@ -1,5 +1,5 @@
-import { getUser } from "../../../lib/db/user.js";
-import { verifyAccessToken } from "../../../lib/server/createToken.js";
+import { getUser } from "../../../../lib/db/user.js";
+import { verifyAccessToken } from "../../../../lib/server/createToken.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty
@@ -21,8 +21,15 @@ export const GET = ({ request }) => {
       .then((token) => {
         getUser(token.sub)
           .then((user) => {
+            const resBody = {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              pictureUrl: user.picture_url,
+            };
+
             resolve(
-              new Response(JSON.stringify(user), {
+              new Response(JSON.stringify(resBody), {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -62,7 +69,7 @@ export const fallback = ({ request }) => {
     status: 405,
     headers: {
       "Content-Type": "application/json",
-      Allow: "POST",
+      Allow: "GET",
     },
   });
 };

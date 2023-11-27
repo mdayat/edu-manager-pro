@@ -45,8 +45,8 @@ export const POST = ({ request }) => {
                     createUser(userData)
                       .then(() => {
                         const resBody = {
-                          access_token: token.access,
-                          refresh_token: token.refresh,
+                          accessToken: token.access,
+                          refreshToken: token.refresh,
                         };
 
                         resolve(
@@ -73,8 +73,8 @@ export const POST = ({ request }) => {
                     updateUser(user.id, { refresh_token: token.refresh })
                       .then(() => {
                         const resBody = {
-                          access_token: token.access,
-                          refresh_token: token.refresh,
+                          accessToken: token.access,
+                          refreshToken: token.refresh,
                         };
 
                         resolve(

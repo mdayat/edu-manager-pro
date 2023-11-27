@@ -36,8 +36,8 @@ export const GET = ({ request }) => {
             updateUser(oldToken.sub, { refresh_token: newToken.refresh })
               .then(() => {
                 const resBody = {
-                  access_token: newToken.access,
-                  refresh_token: newToken.refresh,
+                  accessToken: newToken.access,
+                  refreshToken: newToken.refresh,
                 };
 
                 resolve(
