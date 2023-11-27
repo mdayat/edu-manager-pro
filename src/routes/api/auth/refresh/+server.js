@@ -3,7 +3,7 @@ import {
   createAccessToken,
   createRefreshToken,
   verifyRefreshToken,
-} from "../../../../lib/server/createToken.js";
+} from "../../../../lib/server/token.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty

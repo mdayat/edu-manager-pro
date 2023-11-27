@@ -1,5 +1,5 @@
 import { getUser } from "../../../../lib/db/user.js";
-import { verifyAccessToken } from "../../../../lib/server/createToken.js";
+import { verifyAccessToken } from "../../../../lib/server/token.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty

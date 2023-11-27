@@ -2,7 +2,7 @@ import { OAuth2Client } from "google-auth-library";
 import {
   createAccessToken,
   createRefreshToken,
-} from "$lib/server/createToken.js";
+} from "../../../../lib/server/token.js";
 import { createUser, getUser, updateUser } from "../../../../lib/db/user.js";
 
 const client = new OAuth2Client();

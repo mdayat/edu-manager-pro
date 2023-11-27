@@ -7,16 +7,18 @@
     isGetUserClicked = true;
   };
 
-  const getUser = new Promise((resolve, reject) => {
-    const accessToken = localStorage.getItem("access_token");
-    fetch("api/users/me", {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    })
-      .then((res) => {
+  const getUser = () => {
+    const promise = new Promise((resolve, reject) => {
+      const accessToken = localStorage.getItem("access_token");
+      fetch("api/users/me", {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }).then((res) => {
         if (res.status === 200) {
-          return res.json();
+          res.json().then((user) => {
+            resolve(user);
+          });
         }
 
         // Handle response when user is not found
@@ -46,7 +48,7 @@
               localStorage.setItem("refresh_token", refreshToken);
 
               // Get user (again) with the new access token
-              fetch("api/users", {
+              fetch("api/users/me", {
                 headers: {
                   Authorization: "Bearer " + accessToken,
                 },
@@ -59,11 +61,11 @@
                 });
             });
         }
-      })
-      .then((user) => {
-        resolve(user);
       });
-  });
+    });
+
+    return promise;
+  };
 </script>
 
 <h1>Hello From Home Page</h1>
@@ -73,8 +75,8 @@
 </button>
 
 {#if isGetUserClicked}
-  {#await getUser}
-    <p></p>
+  {#await getUser()}
+    <p>LOADING...</p>
   {:then user}
     <ul>
       <li>Account Id: {user.id}</li>
