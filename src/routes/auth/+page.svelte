@@ -1,7 +1,27 @@
+<script>
+  // This global function is used for google auth callback
+  window.handleGoogleSignIn = (res) => {
+    fetch("api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(res.credential),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((token) => {
+        localStorage.setItem("access_token", token.access);
+        localStorage.setItem("refresh_token", token.refresh);
+        window.location.replace(window.location.origin);
+      });
+  };
+</script>
+
 <!-- Loading google client library and handling authentication -->
 <svelte:head>
   <script src="https://accounts.google.com/gsi/client" async></script>
-  <script src="googleSignIn.js"></script>
 </svelte:head>
 
 <h1>Hello From Auth Page</h1>
