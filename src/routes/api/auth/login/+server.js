@@ -12,7 +12,9 @@ export const POST = ({ request }) => {
   const promise = new Promise((resolve) => {
     request
       .json()
-      .then((googleIDToken) => {
+      .then((body) => {
+        const googleIDToken = body.credential;
+
         client
           .verifyIdToken({ idToken: googleIDToken, audience: CLIENT_ID })
           .then((ticket) => {
@@ -42,8 +44,13 @@ export const POST = ({ request }) => {
 
                     createUser(userData)
                       .then(() => {
+                        const resBody = {
+                          access_token: token.access,
+                          refresh_token: token.refresh,
+                        };
+
                         resolve(
-                          new Response(JSON.stringify(token), {
+                          new Response(JSON.stringify(resBody), {
                             status: 201,
                             headers: {
                               "Content-Type": "application/json",
@@ -65,8 +72,13 @@ export const POST = ({ request }) => {
                   } else {
                     updateUser(user.id, { refresh_token: token.refresh })
                       .then(() => {
+                        const resBody = {
+                          access_token: token.access,
+                          refresh_token: token.refresh,
+                        };
+
                         resolve(
-                          new Response(JSON.stringify(token), {
+                          new Response(JSON.stringify(resBody), {
                             headers: {
                               "Content-Type": "application/json",
                             },

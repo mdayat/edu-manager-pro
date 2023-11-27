@@ -3,7 +3,7 @@
   window.handleGoogleSignIn = (res) => {
     fetch("api/auth/login", {
       method: "POST",
-      body: JSON.stringify(res.credential),
+      body: JSON.stringify({ credential: res.credential }),
       headers: {
         "content-type": "application/json",
       },
@@ -11,9 +11,9 @@
       .then((res) => {
         return res.json();
       })
-      .then((token) => {
-        localStorage.setItem("access_token", token.access);
-        localStorage.setItem("refresh_token", token.refresh);
+      .then(({ access_token, refresh_token }) => {
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
         window.location.replace(window.location.origin);
       });
   };
