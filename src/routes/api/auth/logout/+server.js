@@ -23,9 +23,9 @@ export const GET = ({ request }) => {
       })
       .then(() => {
         resolve(
-          new Response(JSON.stringify("Logout Success"), {
+          new Response(null, {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Length": 0,
             },
           }),
         );
@@ -51,7 +51,7 @@ export const fallback = ({ request }) => {
     status: 405,
     headers: {
       "Content-Type": "application/json",
-      Allow: "POST",
+      Allow: "GET",
     },
   });
 };

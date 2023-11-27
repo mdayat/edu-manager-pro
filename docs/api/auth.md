@@ -2,7 +2,7 @@
 
 ## Login
 
-Returns a pair of access and refresh token
+Returns a pair of access and refresh token.
 
 ### Endpoint
 
@@ -46,5 +46,31 @@ When a request fails, the server will return its error message in the response b
    3. Failed to update refresh token (if it's an old user)
 
 ## Logout
+
+Update user's `refresh_token` in the database to null and remove pair of access and refresh token in `localStorage`.
+
+### Endpoint
+
+`/api/auth/logout`
+
+### Allowed Methods
+
+1. GET
+
+### Request Headers
+
+```json
+{
+  "Authorization": "Bearer YOUR_REFRESH_TOKEN"
+}
+```
+
+### Error
+
+When a request fails, the server will return its error message in the response body as a **plain JSON string without any properties**. This endpoint uses the following error codes:
+
+1. `405 Method Not Allowed`: The server doesn't support the HTTP method used in the request.
+2. `401 Unauthorized`: The `Authorization` header is empty
+3. `500 Internal Server Error`: The server failed to to update refresh token
 
 ## Refresh
