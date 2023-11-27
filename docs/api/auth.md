@@ -47,7 +47,7 @@ When a request fails, the server will return its error message in the response b
 
 ## Logout
 
-Update user's `refresh_token` in the database to null and remove pair of access and refresh token in `localStorage`.
+Update user's `refresh_token` in the database to null
 
 ### Endpoint
 
@@ -71,6 +71,43 @@ When a request fails, the server will return its error message in the response b
 
 1. `405 Method Not Allowed`: The server doesn't support the HTTP method used in the request.
 2. `401 Unauthorized`: The `Authorization` header is empty
-3. `500 Internal Server Error`: The server failed to to update refresh token
+3. `500 Internal Server Error`: The server failed to update refresh token
 
 ## Refresh
+
+Request a new pair of access and refresh token, update user's `refresh_token` in the database from newly generated refresh token
+
+### Endpoint
+
+`/api/auth/refresh`
+
+### Allowed Methods
+
+1. GET
+
+### Request Headers
+
+```json
+{
+  "Authorization": "Bearer YOUR_REFRESH_TOKEN"
+}
+```
+
+### Response
+
+Returns JSON object with the following properties:
+
+```json
+{
+  "access_token": "YOUR_ACCESS_TOKEN",
+  "refresh_token": "YOUR_REFRESH_TOKEN"
+}
+```
+
+### Error
+
+When a request fails, the server will return its error message in the response body as a **plain JSON string without any properties**. This endpoint uses the following error codes:
+
+1. `405 Method Not Allowed`: The server doesn't support the HTTP method used in the request.
+2. `401 Unauthorized`: The `Authorization` header is empty, or invalid refresh token
+3. `500 Internal Server Error`: The server failed to create access and refresh token, or update refresh token

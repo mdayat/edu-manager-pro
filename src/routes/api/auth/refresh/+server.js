@@ -35,8 +35,13 @@ export const GET = ({ request }) => {
 
             updateUser(oldToken.sub, { refresh_token: newToken.refresh })
               .then(() => {
+                const resBody = {
+                  access_token: newToken.access,
+                  refresh_token: newToken.refresh,
+                };
+
                 resolve(
-                  new Response(JSON.stringify(newToken), {
+                  new Response(JSON.stringify(resBody), {
                     headers: {
                       "Content-Type": "application/json",
                     },
@@ -88,7 +93,7 @@ export const fallback = ({ request }) => {
     status: 405,
     headers: {
       "Content-Type": "application/json",
-      Allow: "POST",
+      Allow: "GET",
     },
   });
 };
