@@ -1,4 +1,4 @@
-import { updateUser } from "../../../../lib/db/user.js";
+import { updateUser } from "../../../../lib/server/db/user.js";
 import {
   createAccessToken,
   createRefreshToken,

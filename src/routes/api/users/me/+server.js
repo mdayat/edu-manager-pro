@@ -1,4 +1,4 @@
-import { getUser } from "../../../../lib/db/user.js";
+import { getUser } from "../../../../lib/server/db/user.js";
 import { verifyAccessToken } from "../../../../lib/server/token.js";
 
 export const GET = ({ request }) => {
