@@ -9,8 +9,18 @@ datasource db {
 
 model user {
   id            String  @id @default(uuid())
-  name          String
-  email         String
-  picture_url   String
-  refresh_token String? @unique
+  name          String  @db.VarChar(255)
+  email         String  @db.VarChar(255)
+  picture_url   String  @db.Text
+  refresh_token String? @unique @db.Text
+}
+
+model student {
+  id             String  @id @default(uuid())
+  name           String  @db.VarChar(255)
+  email          String  @db.VarChar(255)
+  age            Int     @db.Integer
+  gender         String  @db.VarChar(8)
+  address        String  @db.Text
+  payment_status Boolean @db.Boolean
 }
