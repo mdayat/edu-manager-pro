@@ -1,4 +1,4 @@
-import { prisma } from "../../../../lib/server/db/prismaClient.js";
+import { prisma } from "../../../../lib/db/prismaClient.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty
