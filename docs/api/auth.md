@@ -1,4 +1,4 @@
-# [Edu Manager Pro API Documentation](README.md) - Auth
+# [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Auth
 
 ## Login
 

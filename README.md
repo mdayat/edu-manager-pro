@@ -1,3 +1,5 @@
+# Edu Manager Pro
+
 ## Preface
 
 This is a repository to host our Capstone Project of Dicoding Bootcamp 2023. We choose to use [SvelteKit](https://kit.svelte.dev/) because it offers the flexibility of [SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA). Of course, because the tight of the deadline, we choose to use SvelteKit as our fullstack app to handle both Fron-End and Back-End requirements.
@@ -33,3 +35,7 @@ npm install -g pnpm
 ```
 
 If you prefer another methods to install pnpm, please refer to this [document](https://pnpm.io/installation).
+
+## API Reference
+
+Please read further [this document](docs/api/README.md) if you want to use the API that we provide.
