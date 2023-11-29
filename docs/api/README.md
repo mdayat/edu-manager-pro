@@ -28,7 +28,7 @@ An endpoint that performs authentication-related transaction.
 
 An endpoint to get account information.
 
-1. [Get Account Information](users.md#users): `GET /api/users/me`
+1. [Get Account Information](users.md): `GET /api/users/me`
 
 ## Others
 
