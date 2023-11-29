@@ -25,4 +25,40 @@ const createStudent = (student) => {
   return promise;
 };
 
-export { createStudent };
+const getStudents = () => {
+  const promise = new Promise((resolve, reject) => {
+    supabase
+      .from("student")
+      .select()
+      .then((res) => {
+        if (res.status === 200) {
+          resolve(res.data);
+        } else {
+          reject(res.error);
+        }
+      });
+  });
+
+  return promise;
+};
+
+const getStudent = (studentId) => {
+  const promise = new Promise((resolve, reject) => {
+    supabase
+      .from("student")
+      .select()
+      .eq("id", studentId)
+      .maybeSingle()
+      .then((res) => {
+        if (res.status === 200) {
+          resolve(res.data);
+        } else {
+          reject(res.error);
+        }
+      });
+  });
+
+  return promise;
+};
+
+export { createStudent, getStudents, getStudent };

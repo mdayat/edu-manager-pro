@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { validateObjectKeys } from "../../../lib/student.js";
 import { verifyAccessToken } from "../../../lib/token.js";
-import { createStudent } from "../../../lib/db/student.js";
+import { createStudent, getStudents } from "../../../lib/db/student.js";
 
 export const POST = ({ request }) => {
   // Reject request when authorization header is empty
@@ -100,12 +100,68 @@ export const POST = ({ request }) => {
   return promise;
 };
 
+export const GET = ({ request }) => {
+  // Reject request when authorization header is empty
+  if (request.headers.get("Authorization") === null) {
+    return new Response(JSON.stringify("Unauthorized"), {
+      status: 401,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const promise = new Promise((resolve) => {
+    const accessToken = request.headers
+      .get("Authorization")
+      .split("Bearer ")[1];
+
+    verifyAccessToken(accessToken)
+      .then(() => {
+        getStudents()
+          .then((students) => {
+            resolve(
+              new Response(JSON.stringify(students), {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }),
+            );
+          })
+          .catch((err) => {
+            // Reject request when failed to get all student
+            resolve(
+              new Response(JSON.stringify(err.message), {
+                status: 500,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }),
+            );
+          });
+      })
+      .catch((err) => {
+        // Reject request when access token is invalid
+        resolve(
+          new Response(JSON.stringify(err.message), {
+            status: 401,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }),
+        );
+      });
+  });
+
+  return promise;
+};
+
 export const fallback = ({ request }) => {
   return new Response(JSON.stringify(request.method + " Method Not Allowed"), {
     status: 405,
     headers: {
       "Content-Type": "application/json",
-      Allow: "GET, POST, PUT, DELETE",
+      Allow: "GET, POST",
     },
   });
 };
