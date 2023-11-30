@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import { verifyAccessToken } from "../../../lib/token.js";
+import { verifyAccessToken } from "../../../lib/server/token.js";
 import { validateObjectKeys } from "../../../lib/server/utils.js";
-import { createStudent, getStudents } from "../../../lib/db/student.js";
+import { createStudent, getStudents } from "../../../lib/server/db/student.js";
 
 export const POST = ({ request }) => {
   // Reject request when authorization header is empty

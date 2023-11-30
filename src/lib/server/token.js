@@ -5,7 +5,7 @@ import {
   MINUTES_IN_SECONDS,
   REFRESH_TOKEN_ISSUER,
   SITE_ORIGIN,
-} from "./constants";
+} from "../constants";
 
 const ACCESS_TOKEN_SECRET = import.meta.env.VITE_ACCESS_TOKEN_SECRET;
 const REFRESH_TOKEN_SECRET = import.meta.env.VITE_REFRESH_TOKEN_SECRET;

@@ -1,9 +1,9 @@
-import { updateUser } from "../../../../lib/db/user.js";
+import { updateUser } from "../../../../lib/server/db/user.js";
 import {
   createAccessToken,
   createRefreshToken,
   verifyRefreshToken,
-} from "../../../../lib/token.js";
+} from "../../../../lib/server/token.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty

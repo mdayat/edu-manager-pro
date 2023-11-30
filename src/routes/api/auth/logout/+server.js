@@ -1,4 +1,4 @@
-import { supabase } from "../../../../lib/db/supabaseClient.js";
+import { supabase } from "../../../../lib/server/db/supabaseClient.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty

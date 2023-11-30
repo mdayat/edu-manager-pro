@@ -2,8 +2,12 @@ import { OAuth2Client } from "google-auth-library";
 import {
   createAccessToken,
   createRefreshToken,
-} from "../../../../lib/token.js";
-import { createUser, getUser, updateUser } from "../../../../lib/db/user.js";
+} from "../../../../lib/server/token.js";
+import {
+  createUser,
+  getUser,
+  updateUser,
+} from "../../../../lib/server/db/user.js";
 
 const client = new OAuth2Client();
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;

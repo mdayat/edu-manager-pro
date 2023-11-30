@@ -1,10 +1,10 @@
-import { verifyAccessToken } from "../../../../lib/token.js";
+import { verifyAccessToken } from "../../../../lib/server/token.js";
 import { validateObjectKeys } from "../../../../lib/server/utils.js";
 import {
   deleteStudent,
   getStudent,
   updateStudent,
-} from "../../../../lib/db/student.js";
+} from "../../../../lib/server/db/student.js";
 
 export const GET = ({ params, request }) => {
   // Reject request when authorization header is empty
