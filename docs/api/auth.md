@@ -47,7 +47,9 @@ When a request fails, the server will return its error message in the response b
 
 ## Logout
 
-Update user's `refresh_token` in the database to null
+Update user's `refresh_token` in the database to **null**.
+
+> **Note:** It's important to know that whether the request is success or failed, the user's access and refresh token stored in the `localStorage` will be deleted.
 
 ### Endpoint
 
@@ -75,7 +77,7 @@ When a request fails, the server will return its error message in the response b
 
 ## Refresh
 
-Request a new pair of access and refresh token, update user's `refresh_token` in the database from newly generated refresh token
+Request a new pair of access and refresh token and returns it to the client, and update user's `refresh_token` in the database from newly generated refresh token.
 
 ### Endpoint
 
@@ -110,4 +112,6 @@ When a request fails, the server will return its error message in the response b
 
 1. `405 Method Not Allowed`: The server doesn't support the HTTP method used in the request.
 2. `401 Unauthorized`: The `Authorization` header is empty, or invalid refresh token
-3. `500 Internal Server Error`: The server failed to create access and refresh token, or update refresh token
+3. `500 Internal Server Error`: The server failed to do one of these scenarios:
+   1. Failed to create a new pair of access and refresh token
+   2. Failed to update refresh token (if it's an old user)
