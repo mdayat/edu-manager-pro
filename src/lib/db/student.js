@@ -61,4 +61,22 @@ const getStudent = (studentId) => {
   return promise;
 };
 
-export { createStudent, getStudents, getStudent };
+const deleteStudent = (studentId) => {
+  const promise = new Promise((resolve, reject) => {
+    supabase
+      .from("student")
+      .delete()
+      .eq("id", studentId)
+      .then((res) => {
+        if (res.status === 204) {
+          resolve();
+        } else {
+          reject(res.error);
+        }
+      });
+  });
+
+  return promise;
+};
+
+export { createStudent, getStudents, getStudent, deleteStudent };
