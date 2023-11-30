@@ -1,63 +1,60 @@
-import { prisma } from "./prismaClient";
+import { supabase } from "./supabaseClient";
 
 const getUser = (userId) => {
   const promise = new Promise((resolve, reject) => {
-    prisma.user
-      .findFirst({ where: { id: userId } })
-      .then((user) => {
-        resolve(user);
-      })
-      .catch((err) => {
-        reject(err);
+    supabase
+      .from("user")
+      .select()
+      .eq("id", userId)
+      .limit()
+      .single()
+      .then((res) => {
+        if (res.status === 200) {
+          resolve(res.data);
+        } else {
+          reject(res.error);
+        }
       });
   });
 
   return promise;
 };
 
-const createUser = (data) => {
+const createUser = (user) => {
   const promise = new Promise((resolve, reject) => {
-    prisma.user
-      .create({ data })
-      .then((user) => {
-        resolve(user);
+    supabase
+      .from("user")
+      .insert({
+        ...user,
       })
-      .catch((err) => {
-        reject(err);
+      .then((res) => {
+        if (res.status === 201) {
+          resolve();
+        } else {
+          reject(res.error);
+        }
       });
   });
 
   return promise;
 };
 
-const updateUser = (userId, newValue) => {
+const updateUser = (userId, newData) => {
   const promise = new Promise((resolve, reject) => {
-    prisma.user
-      .update({ where: { id: userId }, data: newValue })
-      .then((user) => {
-        resolve(user);
-      })
-      .catch((err) => {
-        reject(err);
+    supabase
+      .from("user")
+      .update({ ...newData })
+      .eq("id", userId)
+      .then((res) => {
+        if (res.status === 204) {
+          resolve();
+        } else {
+          reject(res.error);
+        }
       });
   });
 
   return promise;
 };
 
-const deleteUser = (userId) => {
-  const promise = new Promise((resolve, reject) => {
-    prisma.user
-      .delete({ where: { id: userId } })
-      .then((user) => {
-        resolve(user);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-
-  return promise;
-};
-
-export { getUser, createUser, updateUser, deleteUser };
+export { getUser, createUser, updateUser };

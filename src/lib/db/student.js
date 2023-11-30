@@ -5,13 +5,7 @@ const createStudent = (student) => {
     supabase
       .from("student")
       .insert({
-        id: student.id,
-        name: student.name,
-        email: student.email,
-        age: student.age,
-        gender: student.gender,
-        address: student.address,
-        payment_status: student.payment_status,
+        ...student,
       })
       .then((res) => {
         if (res.status === 201) {

@@ -1,6 +1,6 @@
 # Edu Manager Pro
 
-This is a repository to host our Capstone Project of Dicoding Bootcamp 2023. **Edu Manager Pro** is an app that aims to provide tools that enable private teachers to optimize lesson management, better manage student progress and improve the quality of teaching without having to face the complexity and high cost of similiar management tools in a corporate context.
+This is a repository to host our Capstone Project of Dicoding Bootcamp 2023. **Edu Manager Pro** is an app that aims to provide tools that enable private teachers to optimize lesson management, better manage student progress, and improve the quality of teaching without having to face the complexity and high cost of similiar management tools in a corporate context.
 
 ## Tech Stack
 

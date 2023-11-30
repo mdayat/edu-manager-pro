@@ -1,4 +1,4 @@
-import { prisma } from "../../../../lib/db/prismaClient.js";
+import { supabase } from "../../../../lib/db/supabaseClient.js";
 
 export const GET = ({ request }) => {
   // Reject request when authorization header is empty
@@ -16,30 +16,31 @@ export const GET = ({ request }) => {
       .get("Authorization")
       .split("Bearer ")[1];
 
-    prisma.user
-      .update({
-        where: { refresh_token: refreshToken },
-        data: { refresh_token: null },
-      })
-      .then(() => {
-        resolve(
-          new Response(null, {
-            headers: {
-              "Content-Length": 0,
-            },
-          }),
-        );
-      })
-      .catch((err) => {
-        // Reject request when failed to update refresh token
-        resolve(
-          new Response(JSON.stringify(err.message), {
-            status: 500,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }),
-        );
+    supabase
+      .from("user")
+      .update({ refresh_token: null })
+      .eq("refresh_token", refreshToken)
+      .then((res) => {
+        if (res.status === 204) {
+          resolve(
+            new Response(null, {
+              status: 204,
+              headers: {
+                "Content-Length": 0,
+              },
+            }),
+          );
+        } else {
+          // Reject request when failed to update refresh token
+          resolve(
+            new Response(JSON.stringify(res.error.message), {
+              status: 500,
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }),
+          );
+        }
       });
   });
 
