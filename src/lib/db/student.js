@@ -55,6 +55,24 @@ const getStudent = (studentId) => {
   return promise;
 };
 
+const updateStudent = (studentId, newData) => {
+  const promise = new Promise((resolve, reject) => {
+    supabase
+      .from("student")
+      .update({ ...newData })
+      .eq("id", studentId)
+      .then((res) => {
+        if (res.status === 204) {
+          resolve();
+        } else {
+          reject(res.error);
+        }
+      });
+  });
+
+  return promise;
+};
+
 const deleteStudent = (studentId) => {
   const promise = new Promise((resolve, reject) => {
     supabase
@@ -73,4 +91,4 @@ const deleteStudent = (studentId) => {
   return promise;
 };
 
-export { createStudent, getStudents, getStudent, deleteStudent };
+export { createStudent, getStudents, getStudent, updateStudent, deleteStudent };

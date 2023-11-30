@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { validateObjectKeys } from "../../../lib/student.js";
 import { verifyAccessToken } from "../../../lib/token.js";
+import { validateObjectKeys } from "../../../lib/server/utils.js";
 import { createStudent, getStudents } from "../../../lib/db/student.js";
 
 export const POST = ({ request }) => {
@@ -15,37 +15,45 @@ export const POST = ({ request }) => {
   }
 
   const promise = new Promise((resolve) => {
-    request
-      .json()
-      .then((body) => {
-        const requiredKeyNames = [
-          "name",
-          "email",
-          "age",
-          "gender",
-          "address",
-          "payment_status",
-        ];
+    const accessToken = request.headers
+      .get("Authorization")
+      .split("Bearer ")[1];
 
-        const result = validateObjectKeys(requiredKeyNames, Object.keys(body));
-        if (result.isValid === false) {
-          // Reject request when body payload is insufficient or invalid
-          resolve(
-            new Response(JSON.stringify(result.message), {
-              status: 400,
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }),
-          );
-        }
+    verifyAccessToken(accessToken)
+      .then(() => {
+        request
+          .json()
+          .then((body) => {
+            const bodyKeys = Object.keys(body);
+            const validKeyNames = [
+              "name",
+              "email",
+              "age",
+              "gender",
+              "address",
+              "payment_status",
+            ];
 
-        const accessToken = request.headers
-          .get("Authorization")
-          .split("Bearer ")[1];
+            const hasInvalidLength = bodyKeys.length !== validKeyNames.length;
+            const hasValidObjectKeys = validateObjectKeys(
+              validKeyNames,
+              bodyKeys,
+            );
 
-        verifyAccessToken(accessToken)
-          .then(() => {
+            if (hasInvalidLength || !hasValidObjectKeys) {
+              // Reject request when body payload is invalid
+              const message =
+                "Invalid body payload: Please refer to the api docs about the allowed body payload";
+              resolve(
+                new Response(JSON.stringify(message), {
+                  status: 400,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }),
+              );
+            }
+
             const student = {
               id: uuidv4(),
               ...body,
@@ -53,7 +61,8 @@ export const POST = ({ request }) => {
 
             createStudent(student)
               .then(() => {
-                new Response(JSON.stringify("New student created"), {
+                const message = `New student with the "id" of ${student.id}, successfully created`;
+                new Response(JSON.stringify(message), {
                   status: 201,
                   headers: {
                     "Content-Type": "application/json",
@@ -73,10 +82,10 @@ export const POST = ({ request }) => {
               });
           })
           .catch((err) => {
-            // Reject request when access token is invalid
+            // Reject request when body payload is missing in request body.
             resolve(
               new Response(JSON.stringify(err.message), {
-                status: 401,
+                status: 400,
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -85,10 +94,10 @@ export const POST = ({ request }) => {
           });
       })
       .catch((err) => {
-        // Reject request when body payload is missing in request body.
+        // Reject request when access token is invalid
         resolve(
           new Response(JSON.stringify(err.message), {
-            status: 400,
+            status: 401,
             headers: {
               "Content-Type": "application/json",
             },
