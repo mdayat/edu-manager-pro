@@ -62,12 +62,14 @@ export const POST = ({ request }) => {
             createStudent(student)
               .then(() => {
                 const message = `New student with the "id" of ${student.id}, successfully created`;
-                new Response(JSON.stringify(message), {
-                  status: 201,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                });
+                resolve(
+                  new Response(JSON.stringify(message), {
+                    status: 201,
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }),
+                );
               })
               .catch((err) => {
                 // Reject request when failed to create new student

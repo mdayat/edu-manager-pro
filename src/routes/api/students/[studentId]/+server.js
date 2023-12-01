@@ -129,7 +129,7 @@ export const PATCH = ({ params, request }) => {
               );
             }
 
-            updateStudent(studentId)
+            updateStudent(studentId, body)
               .then(() => {
                 const message = `Student with the "id" of ${studentId}, successfully updated`;
                 resolve(
