@@ -1,5 +1,5 @@
 <script>
-  import { logOut } from "../lib/auth";
+  import { handleInvalidAccessToken, logOut } from "../lib/auth";
 
   let isGetUserClicked = false;
 
@@ -28,38 +28,20 @@
 
         // Handle response when access token is invalid
         if (res.status === 401) {
-          const refreshToken = localStorage.getItem("refresh_token");
-          fetch("/api/auth/refresh", {
-            headers: {
-              Authorization: "Bearer " + refreshToken,
-            },
-          })
-            .then((res) => {
-              if (res.status === 200) {
-                return res.json();
-              }
-
-              // Invalidate access and refresh token if failed to validate refresh token
-              logOut();
+          handleInvalidAccessToken().then((newAccessToken) => {
+            // Get user (again) with the new access token
+            fetch("api/users/me", {
+              headers: {
+                Authorization: "Bearer " + newAccessToken,
+              },
             })
-            .then(({ accessToken, refreshToken }) => {
-              // Update old access and refresh token with the new one
-              localStorage.setItem("access_token", accessToken);
-              localStorage.setItem("refresh_token", refreshToken);
-
-              // Get user (again) with the new access token
-              fetch("api/users/me", {
-                headers: {
-                  Authorization: "Bearer " + accessToken,
-                },
+              .then((res) => {
+                return res.json();
               })
-                .then((res) => {
-                  return res.json();
-                })
-                .then((user) => {
-                  resolve(user);
-                });
-            });
+              .then((user) => {
+                resolve(user);
+              });
+          });
         }
       });
     });
