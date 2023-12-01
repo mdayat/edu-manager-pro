@@ -1,15 +1,10 @@
 # [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Students
 
-## Create Student
+## Create Student - `POST`
 
 ### Endpoint
 
 `/api/students`
-
-### Allowed Methods
-
-1. GET
-2. POST
 
 ### Request Headers
 

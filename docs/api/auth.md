@@ -1,16 +1,12 @@
 # [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Auth
 
-## Login
+## Login - `POST`
 
 Returns a pair of access and refresh token.
 
 ### Endpoint
 
 `/api/auth/login`
-
-### Allowed Methods
-
-1. POST
 
 ### Request Body
 
@@ -45,7 +41,7 @@ When a request fails, the server will return its error message in the response b
    2. Failed to create a new user (if it's a new user)
    3. Failed to update refresh token (if it's an old user)
 
-## Logout
+## Logout - `GET`
 
 Update user's `refresh_token` in the database to **null**.
 
@@ -54,10 +50,6 @@ Update user's `refresh_token` in the database to **null**.
 ### Endpoint
 
 `/api/auth/logout`
-
-### Allowed Methods
-
-1. GET
 
 ### Request Headers
 
@@ -75,17 +67,13 @@ When a request fails, the server will return its error message in the response b
 2. `401 Unauthorized`: The `Authorization` header is empty
 3. `500 Internal Server Error`: The server failed to update refresh token
 
-## Refresh
+## Refresh - `GET`
 
 Request a new pair of access and refresh token and returns it to the client, and update user's `refresh_token` in the database from newly generated refresh token.
 
 ### Endpoint
 
 `/api/auth/refresh`
-
-### Allowed Methods
-
-1. GET
 
 ### Request Headers
 

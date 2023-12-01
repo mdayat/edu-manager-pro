@@ -1,16 +1,12 @@
 # [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Users
 
-## Users
+## Get User - `GET`
 
 Returns user account information
 
 ### Endpoint
 
 `/api/users/me`
-
-### Allowed Methods
-
-1. GET
 
 ### Request Headers
 
