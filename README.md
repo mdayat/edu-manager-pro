@@ -16,7 +16,7 @@ Then, what about code styles? For that purpose, we picked up a few tools to help
 
 Run this command to clone the repository to your local computer:
 
-```shell
+```shelle
 git clone https://github.com/mdayat/edu-manager-pro.git
 ```
 

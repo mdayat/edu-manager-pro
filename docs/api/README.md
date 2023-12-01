@@ -30,6 +30,12 @@ An endpoint to get account information.
 
 1. [Get Account Information](users.md): `GET /api/users/me`
 
+#### Students
+
+An endpoint to manipulate student data (e.g. add, update, delete, etc.)
+
+1. [Create Student](student.md#create-student): `POST /api/students`
+
 ## Others
 
 ### Regenerate Invalid Access Token
