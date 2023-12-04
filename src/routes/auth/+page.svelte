@@ -24,28 +24,32 @@
   <script src="https://accounts.google.com/gsi/client" async></script>
 </svelte:head>
 
-<h1>Hello From Auth Page</h1>
-
 <!-- HTML API for displaying google "Sign In Button" and "One Tap" prompt -->
-<div class="g_container">
-  <div
-    id="g_id_onload"
-    data-client_id={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-    data-context="signin"
-    data-ux_mode="popup"
-    data-callback="handleGoogleSignIn"
-    data-itp_support="true"
-  ></div>
+<div class="container">
+  <div class="container-div">
+    <h2>Welcome To</h2>
+    <img src="/img/Edu_Manager.png" alt="" />
+    <div class="g_container">
+      <div
+        id="g_id_onload"
+        data-client_id={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleGoogleSignIn"
+        data-itp_support="true"
+      ></div>
 
-  <div
-    class="g_id_signin"
-    data-type="standard"
-    data-shape="pill"
-    data-theme="outline"
-    data-text="continue_with"
-    data-size="large"
-    data-logo_alignment="left"
-  ></div>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="pill"
+        data-theme="outline"
+        data-text="continue_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -54,12 +58,33 @@
     box-sizing: border-box;
     width: 220px;
     height: 44px;
+    margin-bottom: 2rem;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f9fafb;
+  }
+  .container-div {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    align-items: center;
+    border-radius: 1rem;
+    max-width: 48rem;
+    background-color: #f3f4f6;
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  h1 {
-    color: salmon;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
+  .container h2 {
+    color: rgb(53, 63, 105);
+    margin-top: 2rem;
+  }
+  .container-div img {
+    margin-bottom: 1rem;
   }
 </style>
