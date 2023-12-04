@@ -20,7 +20,7 @@ export const POST = ({ request }) => {
       .split("Bearer ")[1];
 
     verifyAccessToken(accessToken)
-      .then(() => {
+      .then((token) => {
         request
           .json()
           .then((body) => {
@@ -56,6 +56,7 @@ export const POST = ({ request }) => {
 
             const student = {
               id: uuidv4(),
+              teacher_id: token.sub,
               ...body,
             };
 

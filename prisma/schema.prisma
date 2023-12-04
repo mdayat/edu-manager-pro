@@ -8,7 +8,7 @@ datasource db {
 }
 
 model user {
-  id            String      @id @default(uuid()) @db.Uuid
+  id            String      @id @default(uuid()) @db.VarChar(255)
   name          String      @db.VarChar(255)
   email         String      @db.VarChar(255)
   picture_url   String      @db.Text
@@ -20,7 +20,7 @@ model user {
 model classroom {
   id          String    @id @default(uuid()) @db.Uuid
   teacher     user      @relation(fields: [teacher_id], references: [id])
-  teacher_id  String    @db.Uuid
+  teacher_id  String    @db.VarChar(255)
   name        String    @db.VarChar(255)
   description String    @db.Text
   students    student[] @relation("classroom_student")
@@ -29,7 +29,7 @@ model classroom {
 model student {
   id             String      @id @default(uuid()) @db.Uuid
   teacher        user        @relation(fields: [teacher_id], references: [id])
-  teacher_id     String      @db.Uuid
+  teacher_id     String      @db.VarChar(255)
   name           String      @db.VarChar(255)
   email          String      @db.VarChar(255)
   age            Int         @db.SmallInt

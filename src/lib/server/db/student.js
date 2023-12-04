@@ -19,11 +19,12 @@ const createStudent = (student) => {
   return promise;
 };
 
-const getStudents = () => {
+const getStudents = (teacherId) => {
   const promise = new Promise((resolve, reject) => {
     supabase
       .from("student")
       .select()
+      .eq("teacher_id", teacherId)
       .then((res) => {
         if (res.status === 200) {
           resolve(res.data);

@@ -6,8 +6,7 @@ const getUser = (userId) => {
       .from("user")
       .select()
       .eq("id", userId)
-      .limit()
-      .single()
+      .maybeSingle()
       .then((res) => {
         if (res.status === 200) {
           resolve(res.data);
