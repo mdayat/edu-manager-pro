@@ -8,19 +8,33 @@ datasource db {
 }
 
 model user {
-  id            String  @id @default(uuid())
-  name          String  @db.VarChar(255)
-  email         String  @db.VarChar(255)
-  picture_url   String  @db.Text
-  refresh_token String? @unique @db.Text
+  id            String      @id @default(uuid()) @db.Uuid
+  name          String      @db.VarChar(255)
+  email         String      @db.VarChar(255)
+  picture_url   String      @db.Text
+  refresh_token String?     @unique @db.Text
+  students      student[]
+  classrooms    classroom[]
+}
+
+model classroom {
+  id          String    @id @default(uuid()) @db.Uuid
+  teacher     user      @relation(fields: [teacher_id], references: [id])
+  teacher_id  String    @db.Uuid
+  name        String    @db.VarChar(255)
+  description String    @db.Text
+  students    student[] @relation("classroom_student")
 }
 
 model student {
-  id             String  @id @default(uuid())
-  name           String  @db.VarChar(255)
-  email          String  @db.VarChar(255)
-  age            Int     @db.Integer
-  gender         String  @db.VarChar(8)
-  address        String  @db.Text
-  payment_status Boolean @db.Boolean
+  id             String      @id @default(uuid()) @db.Uuid
+  teacher        user        @relation(fields: [teacher_id], references: [id])
+  teacher_id     String      @db.Uuid
+  name           String      @db.VarChar(255)
+  email          String      @db.VarChar(255)
+  age            Int         @db.SmallInt
+  gender         String      @db.VarChar(255)
+  address        String      @db.Text
+  payment_status Boolean     @db.Boolean
+  classrooms     classroom[] @relation("classroom_student")
 }
