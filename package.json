@@ -12,7 +12,7 @@
     "fix-format": "pnpm prettier 'src/**/*.{js,css,svelte}' --write"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/adapter-auto": "^2.1.1",
     "@sveltejs/kit": "^1.27.4",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^9.0.0",
