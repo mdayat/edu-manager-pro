@@ -28,11 +28,11 @@ export const POST = ({ request }) => {
           .json()
           .then((body) => {
             const bodyKeys = Object.keys(body);
-            const validKeyNames = ["name", "description"];
+            const validObjectKeys = ["name", "description"];
 
-            const hasInvalidLength = bodyKeys.length !== validKeyNames.length;
+            const hasInvalidLength = bodyKeys.length !== validObjectKeys.length;
             const hasValidObjectKeys = validateObjectKeys(
-              validKeyNames,
+              validObjectKeys,
               bodyKeys,
             );
 
@@ -69,7 +69,7 @@ export const POST = ({ request }) => {
                 );
               })
               .catch((err) => {
-                // Reject request when failed to create new student
+                // Reject request when failed to create new classroom
                 resolve(
                   new Response(JSON.stringify(err.message), {
                     status: 500,
@@ -137,7 +137,7 @@ export const GET = ({ request }) => {
             );
           })
           .catch((err) => {
-            // Reject request when failed to get all student
+            // Reject request when failed to get all classrooms
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,

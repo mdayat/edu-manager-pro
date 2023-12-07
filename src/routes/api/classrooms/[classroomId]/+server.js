@@ -1,10 +1,10 @@
+import {
+  deleteClassroom,
+  getClassroom,
+  updateClassroom,
+} from "../../../../lib/server/db/classroom.js";
 import { verifyAccessToken } from "../../../../lib/server/token.js";
 import { validateObjectKeys } from "../../../../lib/server/utils.js";
-import {
-  deleteStudent,
-  getStudent,
-  updateStudent,
-} from "../../../../lib/server/db/student.js";
 
 export const GET = ({ params, request }) => {
   // Reject request when authorization header is empty
@@ -24,21 +24,21 @@ export const GET = ({ params, request }) => {
 
     verifyAccessToken(accessToken)
       .then(() => {
-        const studentId = params.studentId;
+        const classroomId = params.classroomId;
 
-        getStudent(studentId)
-          .then((student) => {
-            if (student !== null) {
+        getClassroom(classroomId)
+          .then((classroom) => {
+            if (classroom !== null) {
               resolve(
-                new Response(JSON.stringify(student), {
+                new Response(JSON.stringify(classroom), {
                   headers: {
                     "Content-Type": "application/json",
                   },
                 }),
               );
             } else {
-              // Respond when student with the specified "id" not found
-              const message = `Student with the id of "${studentId}" not found`;
+              // Respond when classroom with the specified "id" not found
+              const message = `Classroom with the id of "${classroomId}" not found`;
               resolve(
                 new Response(JSON.stringify(message), {
                   status: 404,
@@ -50,7 +50,7 @@ export const GET = ({ params, request }) => {
             }
           })
           .catch((err) => {
-            // Reject request when failed to get student
+            // Reject request when failed to get classroom
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,
@@ -73,7 +73,6 @@ export const GET = ({ params, request }) => {
         );
       });
   });
-
   return promise;
 };
 
@@ -99,14 +98,7 @@ export const PATCH = ({ params, request }) => {
           .json()
           .then((body) => {
             const bodyKeys = Object.keys(body);
-            const validObjectKeys = [
-              "name",
-              "email",
-              "age",
-              "gender",
-              "address",
-              "payment_status",
-            ];
+            const validObjectKeys = ["name", "description"];
 
             const hasInvalidLength = bodyKeys.length > validObjectKeys.length;
             const hasValidObjectKeys = validateObjectKeys(
@@ -128,10 +120,10 @@ export const PATCH = ({ params, request }) => {
               );
             }
 
-            const studentId = params.studentId;
-            updateStudent(studentId, body)
+            const classroomId = params.classroomId;
+            updateClassroom(classroomId, body)
               .then(() => {
-                const message = `Student with the "id" of ${studentId}, successfully updated`;
+                const message = `Classroom with the "id" of ${classroomId}, successfully updated`;
                 resolve(
                   new Response(JSON.stringify(message), {
                     headers: {
@@ -141,7 +133,7 @@ export const PATCH = ({ params, request }) => {
                 );
               })
               .catch((err) => {
-                // Reject request when failed to update student
+                // Reject request when failed to update classroom
                 resolve(
                   new Response(JSON.stringify(err.message), {
                     status: 500,
@@ -198,11 +190,10 @@ export const DELETE = ({ params, request }) => {
 
     verifyAccessToken(accessToken)
       .then(() => {
-        const studentId = params.studentId;
-
-        deleteStudent(studentId)
+        const classroomId = params.classroomId;
+        deleteClassroom(classroomId)
           .then(() => {
-            const message = `Success deleting student with the "id" of ${studentId}`;
+            const message = `Success deleting classroom with the "id" of ${classroomId}`;
             resolve(
               new Response(JSON.stringify(message), {
                 headers: {
@@ -212,7 +203,7 @@ export const DELETE = ({ params, request }) => {
             );
           })
           .catch((err) => {
-            // Reject request when failed to delete student
+            // Reject request when failed to delete classroom
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,
@@ -235,7 +226,6 @@ export const DELETE = ({ params, request }) => {
         );
       });
   });
-
   return promise;
 };
 

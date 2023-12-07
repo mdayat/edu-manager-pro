@@ -25,7 +25,7 @@ export const POST = ({ request }) => {
           .json()
           .then((body) => {
             const bodyKeys = Object.keys(body);
-            const validKeyNames = [
+            const validObjectKeys = [
               "name",
               "email",
               "age",
@@ -34,9 +34,9 @@ export const POST = ({ request }) => {
               "payment_status",
             ];
 
-            const hasInvalidLength = bodyKeys.length !== validKeyNames.length;
+            const hasInvalidLength = bodyKeys.length !== validObjectKeys.length;
             const hasValidObjectKeys = validateObjectKeys(
-              validKeyNames,
+              validObjectKeys,
               bodyKeys,
             );
 
