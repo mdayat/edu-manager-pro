@@ -1,6 +1,6 @@
 <script>
-</script>
 
+</script>
 
 <html lang="en">
   <head>
@@ -9,15 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hoverable Sidebar Menu HTML CSS & JavaScript</title>
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Boxicons CSS -->
-    <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <script src="script.js" defer></script>
   </head>
 
   <body>
     <nav class="sidebar locked">
-      <div class="logo_items flex">
+        <nav>
+
+        </nav>
+
+        <div class="logo_items flex">
         <span class="nav_image">
           <img src="images/logo.png" alt="logo_img" />
         </span>
@@ -34,13 +34,13 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Dashboard" class="link flex">
                 <i class="bx bx-home-alt"></i>
                 <span>Dashboard</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Schedule" class="link flex">
                 <i class="bx bx-calendar"></i>
                 <span>Schedule</span>
               </a>
@@ -53,25 +53,25 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Lesson" class="link flex">
                 <i class="bx bx-pencil"></i>
                 <span>Lesson</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Groups" class="link flex">
                 <i class="bx bx-group"></i>
                 <span>Groups</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Student" class="link flex">
                 <i class="bx bx-user"></i>
                 <span>Student</span>
               </a>
             </li>
             <li class="item">
-              <a href="#" class="link flex">
+              <a href="/Profile" class="link flex">
                 <i class="bx bxs-user-account"></i>
                 <span>Profile</span>
               </a>
