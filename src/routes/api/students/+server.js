@@ -129,8 +129,8 @@ export const GET = ({ request }) => {
       .split("Bearer ")[1];
 
     verifyAccessToken(accessToken)
-      .then(() => {
-        getStudents()
+      .then((token) => {
+        getStudents(token.sub)
           .then((students) => {
             resolve(
               new Response(JSON.stringify(students), {
