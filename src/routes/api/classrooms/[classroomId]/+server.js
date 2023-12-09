@@ -1,10 +1,11 @@
 import {
+  createClassroomStudentRelationship,
   deleteClassroom,
+  deleteClassroomStudentRelationship,
   getClassroom,
   updateClassroom,
 } from "../../../../lib/server/db/classroom.js";
 import { verifyAccessToken } from "../../../../lib/server/token.js";
-import { validateObjectKeys } from "../../../../lib/server/utils.js";
 
 export const GET = ({ params, request }) => {
   // Reject request when authorization header is empty
@@ -37,8 +38,8 @@ export const GET = ({ params, request }) => {
                 }),
               );
             } else {
-              // Respond when classroom with the specified "id" not found
-              const message = `Classroom with the id of "${classroomId}" not found`;
+              // Respond when classroom not found
+              const message = "Classroom not found";
               resolve(
                 new Response(JSON.stringify(message), {
                   status: 404,
@@ -97,33 +98,84 @@ export const PATCH = ({ params, request }) => {
         request
           .json()
           .then((body) => {
-            const bodyKeys = Object.keys(body);
-            const validObjectKeys = ["name", "description"];
+            const hasNameKey = Object.hasOwn(body, "name");
+            const hasDescriptionKey = Object.hasOwn(body, "description");
 
-            const hasInvalidLength = bodyKeys.length > validObjectKeys.length;
-            const hasValidObjectKeys = validateObjectKeys(
-              validObjectKeys,
-              bodyKeys,
+            const hasCreatedStudentIdsKey = Object.hasOwn(
+              body,
+              "createdStudentIds",
+            );
+            const hasDeletedStudentIdsKey = Object.hasOwn(
+              body,
+              "deletedStudentIds",
             );
 
-            if (hasInvalidLength || !hasValidObjectKeys) {
-              // Reject request when body payload is invalid
-              const message =
-                "Invalid body payload: Please refer to the api docs about the allowed body payload";
-              resolve(
-                new Response(JSON.stringify(message), {
-                  status: 400,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
+            const classroomId = params.classroomId;
+            const executedPromises = [];
+
+            if (hasNameKey || hasDescriptionKey) {
+              const classroom = {
+                name: body.name ?? null,
+                description: body.description ?? null,
+              };
+
+              if (classroom.name === null) {
+                delete classroom.name;
+              }
+
+              if (classroom.description === null) {
+                delete classroom.description;
+              }
+
+              executedPromises.push({
+                type: "update",
+                data: { classroomId, newData: classroom },
+                func: updateClassroom,
+              });
             }
 
-            const classroomId = params.classroomId;
-            updateClassroom(classroomId, body)
+            if (hasCreatedStudentIdsKey) {
+              executedPromises.push({
+                type: "create",
+                data: {
+                  classroomId,
+                  studentIds: body.createdStudentIds,
+                },
+                func: createClassroomStudentRelationship,
+              });
+            }
+
+            if (hasDeletedStudentIdsKey) {
+              executedPromises.push({
+                type: "delete",
+                data: {
+                  studentIds: body.deletedStudentIds,
+                },
+                func: deleteClassroomStudentRelationship,
+              });
+            }
+
+            Promise.all(
+              executedPromises.map((promise) => {
+                if (promise.type === "update") {
+                  return promise.func(
+                    promise.data.classroomId,
+                    promise.data.newData,
+                  );
+                }
+
+                if (promise.type === "create") {
+                  return promise.func(
+                    promise.data.classroomId,
+                    promise.data.studentIds,
+                  );
+                }
+
+                return promise.func(promise.data.studentIds);
+              }),
+            )
               .then(() => {
-                const message = `Classroom with the "id" of ${classroomId}, successfully updated`;
+                const message = "Successfully updated classroom";
                 resolve(
                   new Response(JSON.stringify(message), {
                     headers: {
@@ -193,7 +245,7 @@ export const DELETE = ({ params, request }) => {
         const classroomId = params.classroomId;
         deleteClassroom(classroomId)
           .then(() => {
-            const message = `Success deleting classroom with the "id" of ${classroomId}`;
+            const message = "Successfully deleted a classroom";
             resolve(
               new Response(JSON.stringify(message), {
                 headers: {

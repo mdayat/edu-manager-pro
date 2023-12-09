@@ -4,9 +4,7 @@ const createStudent = (student) => {
   const promise = new Promise((resolve, reject) => {
     supabase
       .from("student")
-      .insert({
-        ...student,
-      })
+      .insert({ ...student })
       .then((res) => {
         if (res.status === 201) {
           resolve();
@@ -23,7 +21,7 @@ const getStudents = (teacherId) => {
   const promise = new Promise((resolve, reject) => {
     supabase
       .from("student")
-      .select()
+      .select("id, name, email, age, payment_status")
       .eq("teacher_id", teacherId)
       .then((res) => {
         if (res.status === 200) {
@@ -41,7 +39,7 @@ const getStudent = (studentId) => {
   const promise = new Promise((resolve, reject) => {
     supabase
       .from("student")
-      .select()
+      .select("name, email, age, gender, address, payment_status")
       .eq("id", studentId)
       .maybeSingle()
       .then((res) => {

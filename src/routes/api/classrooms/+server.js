@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import { verifyAccessToken } from "../../../lib/server/token.js";
-import { validateObjectKeys } from "../../../lib/server/utils.js";
 import {
   createClassroom,
   getClassrooms,
@@ -27,38 +26,17 @@ export const POST = ({ request }) => {
         request
           .json()
           .then((body) => {
-            const bodyKeys = Object.keys(body);
-            const validObjectKeys = ["name", "description"];
-
-            const hasInvalidLength = bodyKeys.length !== validObjectKeys.length;
-            const hasValidObjectKeys = validateObjectKeys(
-              validObjectKeys,
-              bodyKeys,
-            );
-
-            if (hasInvalidLength || !hasValidObjectKeys) {
-              // Reject request when body payload is invalid
-              const message =
-                "Invalid body payload: Please refer to the api docs about the allowed body payload";
-              resolve(
-                new Response(JSON.stringify(message), {
-                  status: 400,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
-            }
-
+            const studentIds = body.studentIds;
             const classroom = {
               id: uuidv4(),
               teacher_id: token.sub,
-              ...body,
+              name: body.name,
+              description: body.description,
             };
 
-            createClassroom(classroom)
+            createClassroom(classroom, studentIds)
               .then(() => {
-                const message = `New classroom with the "id" of ${classroom.id}, successfully created`;
+                const message = "New classroom successfully created";
                 resolve(
                   new Response(JSON.stringify(message), {
                     status: 201,
