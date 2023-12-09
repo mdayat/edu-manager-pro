@@ -48,6 +48,7 @@
 
     return promise;
   };
+
 </script>
 
 <h1>Hello From Home Page</h1>
@@ -79,26 +80,21 @@
   {/await}
 {/if}
 
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hoverable Sidebar Menu HTML CSS & JavaScript</title>
+    <title>Sidebar Menu </title>
     <link rel="stylesheet" href="style.css" />
+        <!-- Boxicons CSS -->
+        <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   </head>
 
   <body>
-    <nav class="sidebar locked">
-        <nav>
-
-        </nav>
+    <nav id="navigation drawer" class="sidebar locked">
 
         <div class="logo_items flex">
-        <span class="nav_image">
-          <img src="images/logo.png" alt="logo_img" />
-        </span>
         <span class="logo_name">EduManagerPro</span>
         <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
         <i class="bx bx-x" id="sidebar-close"></i>
@@ -157,8 +153,6 @@
           </ul>
       </div>
     </nav>
-
-
   </body>
 
 </html>
@@ -197,6 +191,7 @@ body {
   display: flex;
   min-width: 55px;
   justify-content: center;
+  
 }
 .nav_image img {
   height: 35px;
@@ -211,7 +206,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  width: 240px;
+  width: 190px;
   background: #fff;
   padding: 15px 10px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
