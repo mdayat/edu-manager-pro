@@ -66,7 +66,7 @@ const getClassrooms = (teacherId) => {
   const promise = new Promise((resolve, reject) => {
     supabase
       .from("classroom")
-      .select("id, name, description, student(count)")
+      .select("id, name, student(count)")
       .eq("teacher_id", teacherId)
       .then((res) => {
         if (res.status === 200) {
@@ -74,7 +74,6 @@ const getClassrooms = (teacherId) => {
             return {
               id: classroom.id,
               name: classroom.name,
-              description: classroom.description,
               numberOfEnrolledStudents: classroom.student[0].count,
             };
           });

@@ -1,12 +1,12 @@
 # [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Auth
 
-## Login - `POST`
+## Login
 
 Returns a pair of access and refresh token.
 
 ### Endpoint
 
-`/api/auth/login`
+`POST /api/auth/login`
 
 ### Request Body
 
@@ -41,7 +41,7 @@ When a request fails, the server will return its error message in the response b
    2. Failed to create a new user (if it's a new user)
    3. Failed to update refresh token (if it's an old user)
 
-## Logout - `GET`
+## Logout
 
 Update user's `refresh_token` in the database to **null**.
 
@@ -49,7 +49,7 @@ Update user's `refresh_token` in the database to **null**.
 
 ### Endpoint
 
-`/api/auth/logout`
+`GET /api/auth/logout`
 
 ### Request Headers
 
@@ -67,13 +67,13 @@ When a request fails, the server will return its error message in the response b
 2. `401 Unauthorized`: The `Authorization` header is empty
 3. `500 Internal Server Error`: The server failed to update refresh token
 
-## Refresh - `GET`
+## Refresh
 
 Request a new pair of access and refresh token and returns it to the client, and update user's `refresh_token` in the database from newly generated refresh token.
 
 ### Endpoint
 
-`/api/auth/refresh`
+`GET /api/auth/refresh`
 
 ### Request Headers
 
@@ -102,10 +102,10 @@ When a request fails, the server will return its error message in the response b
 2. `401 Unauthorized`: Request rejected due to one of the following scenarios:
 
    1. Empty `Authorization` header
-   2. Invalid access token
+   2. Invalid refresh token
 
-   > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
+   > **Note:** When refresh token is invalid, regardless the reasons, user will be logged out to ensure security.
 
 3. `500 Internal Server Error`: The server failed to do one of these scenarios:
    1. Failed to create a new pair of access and refresh token
-   2. Failed to update refresh token (if it's an old user)
+   2. Failed to update refresh token

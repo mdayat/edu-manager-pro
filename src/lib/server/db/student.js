@@ -32,7 +32,7 @@ const getStudents = (teacherId) => {
               email: student.email,
               age: student.age,
               payment_status: student.payment_status,
-              numberOfEnrolledClassroom:
+              numberOfEnrolledClassrooms:
                 student.classroom.length !== 0 ? student.classroom[0].count : 0,
             };
           });
@@ -66,7 +66,7 @@ const getStudent = (studentId) => {
             address: res.data.address,
             payment_status: res.data.payment_status,
             enrolledClassrooms: res.data.classroom,
-            numberOfEnrolledClassroom: res.data.classroom.length,
+            numberOfEnrolledClassrooms: res.data.classroom.length,
           };
 
           resolve(student);
