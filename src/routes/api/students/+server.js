@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import { verifyAccessToken } from "../../../lib/server/token.js";
-import { validateObjectKeys } from "../../../lib/server/utils.js";
 import { createStudent, getStudents } from "../../../lib/server/db/student.js";
 
 export const POST = ({ request }) => {
@@ -24,36 +23,6 @@ export const POST = ({ request }) => {
         request
           .json()
           .then((body) => {
-            const bodyKeys = Object.keys(body);
-            const validObjectKeys = [
-              "name",
-              "email",
-              "age",
-              "gender",
-              "address",
-              "payment_status",
-            ];
-
-            const hasInvalidLength = bodyKeys.length !== validObjectKeys.length;
-            const hasValidObjectKeys = validateObjectKeys(
-              validObjectKeys,
-              bodyKeys,
-            );
-
-            if (hasInvalidLength || !hasValidObjectKeys) {
-              // Reject request when body payload is invalid
-              const message =
-                "Invalid body payload: Please refer to the api docs about the allowed body payload";
-              resolve(
-                new Response(JSON.stringify(message), {
-                  status: 400,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
-            }
-
             const student = {
               id: uuidv4(),
               teacher_id: token.sub,
@@ -62,7 +31,7 @@ export const POST = ({ request }) => {
 
             createStudent(student)
               .then(() => {
-                const message = `New student with the "id" of ${student.id}, successfully created`;
+                const message = "Successfully created new student";
                 resolve(
                   new Response(JSON.stringify(message), {
                     status: 201,

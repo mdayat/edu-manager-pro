@@ -1,5 +1,4 @@
 import { verifyAccessToken } from "../../../../lib/server/token.js";
-import { validateObjectKeys } from "../../../../lib/server/utils.js";
 import {
   deleteStudent,
   getStudent,
@@ -37,8 +36,8 @@ export const GET = ({ params, request }) => {
                 }),
               );
             } else {
-              // Respond when student with the specified "id" not found
-              const message = `Student with the id of "${studentId}" not found`;
+              // Respond when student not found
+              const message = "Student not found";
               resolve(
                 new Response(JSON.stringify(message), {
                   status: 404,
@@ -98,40 +97,10 @@ export const PATCH = ({ params, request }) => {
         request
           .json()
           .then((body) => {
-            const bodyKeys = Object.keys(body);
-            const validObjectKeys = [
-              "name",
-              "email",
-              "age",
-              "gender",
-              "address",
-              "payment_status",
-            ];
-
-            const hasInvalidLength = bodyKeys.length > validObjectKeys.length;
-            const hasValidObjectKeys = validateObjectKeys(
-              validObjectKeys,
-              bodyKeys,
-            );
-
-            if (hasInvalidLength || !hasValidObjectKeys) {
-              // Reject request when body payload is invalid
-              const message =
-                "Invalid body payload: Please refer to the api docs about the allowed body payload";
-              resolve(
-                new Response(JSON.stringify(message), {
-                  status: 400,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
-            }
-
             const studentId = params.studentId;
             updateStudent(studentId, body)
               .then(() => {
-                const message = `Student with the "id" of ${studentId}, successfully updated`;
+                const message = "Successfully updated student";
                 resolve(
                   new Response(JSON.stringify(message), {
                     headers: {
@@ -202,7 +171,7 @@ export const DELETE = ({ params, request }) => {
 
         deleteStudent(studentId)
           .then(() => {
-            const message = `Success deleting student with the "id" of ${studentId}`;
+            const message = "Successfully deleted student";
             resolve(
               new Response(JSON.stringify(message), {
                 headers: {

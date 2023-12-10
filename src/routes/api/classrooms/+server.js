@@ -36,7 +36,7 @@ export const POST = ({ request }) => {
 
             createClassroom(classroom, studentIds)
               .then(() => {
-                const message = "New classroom successfully created";
+                const message = "Successfully created new classroom ";
                 resolve(
                   new Response(JSON.stringify(message), {
                     status: 201,

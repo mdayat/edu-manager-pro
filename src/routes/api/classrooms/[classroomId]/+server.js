@@ -245,7 +245,7 @@ export const DELETE = ({ params, request }) => {
         const classroomId = params.classroomId;
         deleteClassroom(classroomId)
           .then(() => {
-            const message = "Successfully deleted a classroom";
+            const message = "Successfully deleted classroom";
             resolve(
               new Response(JSON.stringify(message), {
                 headers: {

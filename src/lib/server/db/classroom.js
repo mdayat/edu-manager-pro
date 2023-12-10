@@ -93,7 +93,7 @@ const getClassroom = (classroomId) => {
     supabase
       .from("classroom")
       .select(
-        "name, description, student(id, name, email, age, gender, payment_status)",
+        "name, description, student(id, name, email, age, payment_status)",
       )
       .eq("id", classroomId)
       .maybeSingle()
