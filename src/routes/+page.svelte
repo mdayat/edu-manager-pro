@@ -108,13 +108,13 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="/Dashboard" class="link flex">
+              <a href="/dashboard" class="link flex">
                 <i class="bx bx-home-alt"></i>
                 <span>Dashboard</span>
               </a>
             </li>
             <li class="item">
-              <a href="/Schedule" class="link flex">
+              <a href="/schedule" class="link flex">
                 <i class="bx bx-calendar"></i>
                 <span>Schedule</span>
               </a>
@@ -127,25 +127,19 @@
               <span class="line"></span>
             </div>
             <li class="item">
-              <a href="/Lesson" class="link flex">
-                <i class="bx bx-pencil"></i>
-                <span>Lesson</span>
-              </a>
-            </li>
-            <li class="item">
-              <a href="/Groups" class="link flex">
+              <a href="/groups" class="link flex">
                 <i class="bx bx-group"></i>
                 <span>Groups</span>
               </a>
             </li>
             <li class="item">
-              <a href="/Student" class="link flex">
+              <a href="/student" class="link flex">
                 <i class="bx bx-user"></i>
                 <span>Student</span>
               </a>
             </li>
             <li class="item">
-              <a href="/Profile" class="link flex">
+              <a href="/profile" class="link flex">
                 <i class="bx bxs-user-account"></i>
                 <span>Profile</span>
               </a>
