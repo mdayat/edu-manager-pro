@@ -1,10 +1,10 @@
-# [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Students
+# [Edu Manager Pro](../../README.md) - [API Reference (REST)](README.md#rest) - Classrooms
 
-## Create Student
+## Create Classroom
 
 ### Endpoint
 
-`POST /api/students`
+`POST /api/classrooms`
 
 ### Request Headers
 
@@ -21,11 +21,8 @@ Send JSON object with the following properties:
 ```json
 {
   "name": "string",
-  "email": "string",
-  "age": "number",
-  "gender": "string", // "male" or "female"
-  "address": "string",
-  "payment_status": "boolean"
+  "description": "string",
+  "studentIds": "string[]" // Array of string
 }
 ```
 
@@ -46,13 +43,13 @@ When a request fails, the server will return its error message in the response b
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
 3. `400 Bad Request`: Request rejected when body payload is missing in the request body
-4. `500 Internal Server Error`: The server failed to create new student
+4. `500 Internal Server Error`: The server failed to create new classroom
 
-## Get All Students
+## Get All Classrooms
 
 ### Endpoint
 
-`GET /api/students`
+`GET /api/classrooms`
 
 ### Request Headers
 
@@ -71,10 +68,7 @@ Returns JSON array of object with the following properties:
   {
     "id": "string",
     "name": "string",
-    "email": "string",
-    "age": "number",
-    "payment_status": "boolean",
-    "numberOfEnrolledClassrooms": "number"
+    "numberOfEnrolledStudents": "number"
   }
 ]
 ```
@@ -91,13 +85,13 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `500 Internal Server Error`: The server failed to get all students
+3. `500 Internal Server Error`: The server failed to get all classrooms
 
-## Get Student
+## Get Classroom
 
 ### Endpoint
 
-`GET /api/students/{studentId}`
+`GET /api/classrooms/{classroomId}`
 
 ### Request Headers
 
@@ -114,18 +108,17 @@ Returns JSON object with the following properties:
 ```json
 {
   "name": "string",
-  "email": "string",
-  "age": "number",
-  "gender": "string", // "male" or "female"
-  "address": "string",
-  "payment_status": "boolean",
-  "enrolledClassrooms": [
+  "description": "string",
+  "enrolledStudents": [
     {
       "id": "string",
-      "name": "string"
+      "name": "string",
+      "email": "string",
+      "age": "number",
+      "payment_status": "boolean"
     }
-  ], // Array of classroom payload
-  "numberOfEnrolledClassrooms": "number"
+  ], // Array of student payload
+  "numberOfEnrolledStudents": "number"
 }
 ```
 
@@ -141,14 +134,14 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `404 Not Found`: The student is not found
-4. `500 Internal Server Error`: The server failed to get the student
+3. `404 Not Found`: The classroom is not found
+4. `500 Internal Server Error`: The server failed to get the classroom
 
-## Update Student
+## Update Classroom
 
 ### Endpoint
 
-`PATCH /api/students/{studentId}`
+`PATCH /api/classrooms/{classroomId}`
 
 ### Request Headers
 
@@ -165,11 +158,9 @@ Send JSON object with **one, or more, or all** of the following properties:
 ```json
 {
   "name": "string",
-  "email": "string",
-  "age": "number",
-  "gender": "string", // "male" or "female"
-  "address": "string",
-  "payment_status": "boolean"
+  "description": "string",
+  "createdStudentIds": "string[]", // Array of string
+  "deletedStudentIds": "string[]" // Array of string
 }
 ```
 
@@ -190,13 +181,13 @@ When a request fails, the server will return its error message in the response b
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
 3. `400 Bad Request`: Request rejected when body payload is missing in the request body
-4. `500 Internal Server Error`: The server failed to update new student
+4. `500 Internal Server Error`: The server failed to update new classroom
 
-## Delete Student
+## Delete Classroom
 
 ### Endpoint
 
-`DELETE /api/students/{studentId}`
+`DELETE /api/classrooms/{classroomId}`
 
 ### Request Headers
 
@@ -222,4 +213,4 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `500 Internal Server Error`: The server failed to create new student
+3. `500 Internal Server Error`: The server failed to create new classroom

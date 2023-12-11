@@ -1,11 +1,11 @@
-import { verifyAccessToken } from "../../../../lib/server/token.js";
+import { v4 as uuidv4 } from "uuid";
+import { verifyAccessToken } from "../../../lib/server/token.js";
 import {
-  deleteStudent,
-  getStudent,
-  updateStudent,
-} from "../../../../lib/server/db/student.js";
+  createClassroom,
+  getClassrooms,
+} from "../../../lib/server/db/classroom.js";
 
-export const GET = ({ params, request }) => {
+export const POST = ({ request }) => {
   // Reject request when authorization header is empty
   if (request.headers.get("Authorization") === null) {
     return new Response(JSON.stringify("Unauthorized"), {
@@ -22,87 +22,24 @@ export const GET = ({ params, request }) => {
       .split("Bearer ")[1];
 
     verifyAccessToken(accessToken)
-      .then(() => {
-        const studentId = params.studentId;
-
-        getStudent(studentId)
-          .then((student) => {
-            if (student !== null) {
-              resolve(
-                new Response(JSON.stringify(student), {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
-            } else {
-              // Respond when student not found
-              const message = "Student not found";
-              resolve(
-                new Response(JSON.stringify(message), {
-                  status: 404,
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                }),
-              );
-            }
-          })
-          .catch((err) => {
-            // Reject request when failed to get student
-            resolve(
-              new Response(JSON.stringify(err.message), {
-                status: 500,
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }),
-            );
-          });
-      })
-      .catch((err) => {
-        // Reject request when access token is invalid
-        resolve(
-          new Response(JSON.stringify(err.message), {
-            status: 401,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }),
-        );
-      });
-  });
-
-  return promise;
-};
-
-export const PATCH = ({ params, request }) => {
-  // Reject request when authorization header is empty
-  if (request.headers.get("Authorization") === null) {
-    return new Response(JSON.stringify("Unauthorized"), {
-      status: 401,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-  const promise = new Promise((resolve) => {
-    const accessToken = request.headers
-      .get("Authorization")
-      .split("Bearer ")[1];
-
-    verifyAccessToken(accessToken)
-      .then(() => {
+      .then((token) => {
         request
           .json()
           .then((body) => {
-            const studentId = params.studentId;
-            updateStudent(studentId, body)
+            const studentIds = body.studentIds;
+            const classroom = {
+              id: uuidv4(),
+              teacher_id: token.sub,
+              name: body.name,
+              description: body.description,
+            };
+
+            createClassroom(classroom, studentIds)
               .then(() => {
-                const message = "Successfully updated student";
+                const message = "Successfully created new classroom ";
                 resolve(
                   new Response(JSON.stringify(message), {
+                    status: 201,
                     headers: {
                       "Content-Type": "application/json",
                     },
@@ -110,7 +47,7 @@ export const PATCH = ({ params, request }) => {
                 );
               })
               .catch((err) => {
-                // Reject request when failed to update student
+                // Reject request when failed to create new classroom
                 resolve(
                   new Response(JSON.stringify(err.message), {
                     status: 500,
@@ -149,7 +86,7 @@ export const PATCH = ({ params, request }) => {
   return promise;
 };
 
-export const DELETE = ({ params, request }) => {
+export const GET = ({ request }) => {
   // Reject request when authorization header is empty
   if (request.headers.get("Authorization") === null) {
     return new Response(JSON.stringify("Unauthorized"), {
@@ -166,14 +103,11 @@ export const DELETE = ({ params, request }) => {
       .split("Bearer ")[1];
 
     verifyAccessToken(accessToken)
-      .then(() => {
-        const studentId = params.studentId;
-
-        deleteStudent(studentId)
-          .then(() => {
-            const message = "Successfully deleted student";
+      .then((token) => {
+        getClassrooms(token.sub)
+          .then((classrooms) => {
             resolve(
-              new Response(JSON.stringify(message), {
+              new Response(JSON.stringify(classrooms), {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -181,7 +115,7 @@ export const DELETE = ({ params, request }) => {
             );
           })
           .catch((err) => {
-            // Reject request when failed to delete student
+            // Reject request when failed to get all classrooms
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,
@@ -213,7 +147,7 @@ export const fallback = ({ request }) => {
     status: 405,
     headers: {
       "Content-Type": "application/json",
-      Allow: "GET, PUT, DELETE",
+      Allow: "GET, POST",
     },
   });
 };

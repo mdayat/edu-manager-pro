@@ -18,23 +18,32 @@ model user {
 }
 
 model classroom {
-  id          String    @id @default(uuid()) @db.Uuid
-  teacher     user      @relation(fields: [teacher_id], references: [id])
-  teacher_id  String    @db.VarChar(255)
-  name        String    @db.VarChar(255)
-  description String    @db.Text
-  students    student[] @relation("classroom_student")
+  id                String              @id @default(uuid()) @db.Uuid
+  teacher           user                @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
+  teacher_id        String              @db.VarChar(255)
+  name              String              @db.VarChar(255)
+  description       String              @db.Text
+  enrolled_students classroom_student[]
+}
+
+model classroom_student {
+  related_classroom classroom @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  classroom_id      String    @db.Uuid
+  related_student   student   @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_id        String    @db.Uuid
+
+  @@id([classroom_id, student_id])
 }
 
 model student {
-  id             String      @id @default(uuid()) @db.Uuid
-  teacher        user        @relation(fields: [teacher_id], references: [id])
-  teacher_id     String      @db.VarChar(255)
-  name           String      @db.VarChar(255)
-  email          String      @db.VarChar(255)
-  age            Int         @db.SmallInt
-  gender         String      @db.VarChar(255)
-  address        String      @db.Text
-  payment_status Boolean     @db.Boolean
-  classrooms     classroom[] @relation("classroom_student")
+  id                  String              @id @default(uuid()) @db.Uuid
+  teacher             user                @relation(fields: [teacher_id], references: [id], onDelete: Cascade)
+  teacher_id          String              @db.VarChar(255)
+  name                String              @db.VarChar(255)
+  email               String              @db.VarChar(255)
+  age                 Int                 @db.SmallInt
+  gender              String              @db.VarChar(255)
+  address             String              @db.Text
+  payment_status      Boolean             @db.Boolean
+  enrolled_classrooms classroom_student[]
 }

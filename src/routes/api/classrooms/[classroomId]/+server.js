@@ -1,9 +1,11 @@
-import { verifyAccessToken } from "../../../../lib/server/token.js";
 import {
-  deleteStudent,
-  getStudent,
-  updateStudent,
-} from "../../../../lib/server/db/student.js";
+  createClassroomStudentRelationship,
+  deleteClassroom,
+  deleteClassroomStudentRelationship,
+  getClassroom,
+  updateClassroom,
+} from "../../../../lib/server/db/classroom.js";
+import { verifyAccessToken } from "../../../../lib/server/token.js";
 
 export const GET = ({ params, request }) => {
   // Reject request when authorization header is empty
@@ -23,21 +25,21 @@ export const GET = ({ params, request }) => {
 
     verifyAccessToken(accessToken)
       .then(() => {
-        const studentId = params.studentId;
+        const classroomId = params.classroomId;
 
-        getStudent(studentId)
-          .then((student) => {
-            if (student !== null) {
+        getClassroom(classroomId)
+          .then((classroom) => {
+            if (classroom !== null) {
               resolve(
-                new Response(JSON.stringify(student), {
+                new Response(JSON.stringify(classroom), {
                   headers: {
                     "Content-Type": "application/json",
                   },
                 }),
               );
             } else {
-              // Respond when student not found
-              const message = "Student not found";
+              // Respond when classroom not found
+              const message = "Classroom not found";
               resolve(
                 new Response(JSON.stringify(message), {
                   status: 404,
@@ -49,7 +51,7 @@ export const GET = ({ params, request }) => {
             }
           })
           .catch((err) => {
-            // Reject request when failed to get student
+            // Reject request when failed to get classroom
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,
@@ -72,7 +74,6 @@ export const GET = ({ params, request }) => {
         );
       });
   });
-
   return promise;
 };
 
@@ -97,10 +98,84 @@ export const PATCH = ({ params, request }) => {
         request
           .json()
           .then((body) => {
-            const studentId = params.studentId;
-            updateStudent(studentId, body)
+            const hasNameKey = Object.hasOwn(body, "name");
+            const hasDescriptionKey = Object.hasOwn(body, "description");
+
+            const hasCreatedStudentIdsKey = Object.hasOwn(
+              body,
+              "createdStudentIds",
+            );
+            const hasDeletedStudentIdsKey = Object.hasOwn(
+              body,
+              "deletedStudentIds",
+            );
+
+            const classroomId = params.classroomId;
+            const executedPromises = [];
+
+            if (hasNameKey || hasDescriptionKey) {
+              const classroom = {
+                name: body.name ?? null,
+                description: body.description ?? null,
+              };
+
+              if (classroom.name === null) {
+                delete classroom.name;
+              }
+
+              if (classroom.description === null) {
+                delete classroom.description;
+              }
+
+              executedPromises.push({
+                type: "update",
+                data: { classroomId, newData: classroom },
+                func: updateClassroom,
+              });
+            }
+
+            if (hasCreatedStudentIdsKey) {
+              executedPromises.push({
+                type: "create",
+                data: {
+                  classroomId,
+                  studentIds: body.createdStudentIds,
+                },
+                func: createClassroomStudentRelationship,
+              });
+            }
+
+            if (hasDeletedStudentIdsKey) {
+              executedPromises.push({
+                type: "delete",
+                data: {
+                  studentIds: body.deletedStudentIds,
+                },
+                func: deleteClassroomStudentRelationship,
+              });
+            }
+
+            Promise.all(
+              executedPromises.map((promise) => {
+                if (promise.type === "update") {
+                  return promise.func(
+                    promise.data.classroomId,
+                    promise.data.newData,
+                  );
+                }
+
+                if (promise.type === "create") {
+                  return promise.func(
+                    promise.data.classroomId,
+                    promise.data.studentIds,
+                  );
+                }
+
+                return promise.func(promise.data.studentIds);
+              }),
+            )
               .then(() => {
-                const message = "Successfully updated student";
+                const message = "Successfully updated classroom";
                 resolve(
                   new Response(JSON.stringify(message), {
                     headers: {
@@ -110,7 +185,7 @@ export const PATCH = ({ params, request }) => {
                 );
               })
               .catch((err) => {
-                // Reject request when failed to update student
+                // Reject request when failed to update classroom
                 resolve(
                   new Response(JSON.stringify(err.message), {
                     status: 500,
@@ -167,11 +242,10 @@ export const DELETE = ({ params, request }) => {
 
     verifyAccessToken(accessToken)
       .then(() => {
-        const studentId = params.studentId;
-
-        deleteStudent(studentId)
+        const classroomId = params.classroomId;
+        deleteClassroom(classroomId)
           .then(() => {
-            const message = "Successfully deleted student";
+            const message = "Successfully deleted classroom";
             resolve(
               new Response(JSON.stringify(message), {
                 headers: {
@@ -181,7 +255,7 @@ export const DELETE = ({ params, request }) => {
             );
           })
           .catch((err) => {
-            // Reject request when failed to delete student
+            // Reject request when failed to delete classroom
             resolve(
               new Response(JSON.stringify(err.message), {
                 status: 500,
@@ -204,7 +278,6 @@ export const DELETE = ({ params, request }) => {
         );
       });
   });
-
   return promise;
 };
 
