@@ -50,8 +50,27 @@ An endpoint to manipulate classroom data (e.g. add, update, delete, etc.)
 4. [Update Classroom](classroom.md#update-classroom): `PATCH /api/classrooms/{classroomId}`
 5. [Delete Classroom](classroom.md#delete-classroom): `DELETE /api/classrooms/{classroomId}`
 
-## Others
+## Utilities
 
 ### Regenerate Invalid Access Token
 
-A function that replace expired access token with the new access token through [refresh](auth.md#refresh) endpoint. More detail will be added...
+[handleInvalidAccessToken](../../src/lib/auth.js) is a function that replace expired access token with the new access token through [refresh](auth.md#refresh) endpoint. This function returning a promise, but takes no arguments. When the promise resolved, it will return a new access token, if rejected, the function will automatically handle for that case.
+
+Code sample:
+
+```js
+// if access token invalid
+handleInvalidAccessToken().then((newAccessToken) => {
+  // Do something here with the new access token
+});
+```
+
+### Logout and Invalidate both Access and Refresh Token
+
+[logOut](../../src/lib/auth.js) is a function that invalidate refresh token stored in the database through [logout](auth.md#logout) endpoint. This function also invalidate both access and refresh token stored in the client side. To use it, just call it and the rest will be handled by the function itself.
+
+Code sample:
+
+```js
+logOut();
+```
