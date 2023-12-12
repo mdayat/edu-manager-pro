@@ -1,5 +1,3 @@
-<html lang="en">
-  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,9 +9,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-  </head>
-</html>
-<body>
+
 <nav id="navigation drawer" class="sidebar locked">
     <div class="logo_items flex">
       <span class="logo_name">EduManagerPro</span>
@@ -69,7 +65,7 @@
       </div>
     </div>
   </nav>
-</body>
+
 
   <!-- /* style kode tampilan dashboard */
   /* Import Google font - Poppins */ -->
@@ -81,10 +77,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
-  body {
-    min-height: 100vh;
-    background: #eef5fe;
-  }
+
   /* Pre css */
   .flex {
     display: flex;
