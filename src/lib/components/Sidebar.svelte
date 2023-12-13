@@ -18,14 +18,7 @@
               <span>Dashboard</span>
             </a>
           </li>
-          <li class="item">
-            <a href="/schedule" class="link flex">
-              <i class="bx bx-calendar"></i>
-              <span>Schedule</span>
-            </a>
-          </li>
         </ul>
-
         <ul class="menu_item">
           <div class="menu_title flex">
             <span class="title">Admin</span>
