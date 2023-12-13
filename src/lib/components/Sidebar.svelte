@@ -42,6 +42,12 @@
               <span>Profile</span>
             </a>
           </li>
+          <li class="item">
+            <a href="/" class="link flex">
+              <i class="bx bxs-user-account"></i>
+              <span>Logout</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

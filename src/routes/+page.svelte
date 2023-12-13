@@ -51,7 +51,7 @@
   };
 </script>
 
-<h1>Hello From Home Page</h1>
+<h1>Hello From Home and Logout Page</h1>
 
 <div class="logout_button">
   <button type="button" on:click={logOut}>Log Out</button>
