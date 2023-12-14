@@ -1,11 +1,9 @@
+<!-- ClassroomForm.svelte -->
 <script>
   let formClassData = {
     name: "",
-    email: "",
-    age: 0,
-    gender: "male",
-    address: "",
-    payment_status: false,
+    description: "",
+    studentIds: 0,
   };
 
   async function handleSubmit() {
@@ -13,7 +11,7 @@
     console.log(formClassData);
     console.log(accessToken);
 
-    const response = await fetch("/api/students", {
+    const response = await fetch("/api/classrooms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,39 +33,51 @@
   }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-  <label for="name">Name:</label>
-  <input type="text" id="name" bind:value={formClassData.name} />
+<div class="formAllClass">
+  <form on:submit|preventDefault={handleSubmit}>
+    <label for="name">Name:</label>
+    <input type="text" id="name" bind:value={formClassData.name} />
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" bind:value={formClassData.email} />
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      id="description"
+      bind:value={formClassData.description}
+    />
 
-  <label for="age">Age:</label>
-  <input type="number" id="age" bind:value={formClassData.age} />
+    <label for="id">Id:</label>
+    <input type="text" id="id" bind:value={formClassData.studentIds} />
 
-  <label for="gender">Gender:</label>
-  <select id="gender" bind:value={formClassData.gender}>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-  </select>
+    <button type="submit">Submit</button>
+  </form>
+</div>
 
-  <label for="address">Address:</label>
-  <textarea id="address" bind:value={formClassData.address}></textarea>
-
-  <label for="payment_status">Payment Status:</label>
-  <input
-    type="checkbox"
-    id="payment_status"
-    bind:checked={formClassData.payment_status}
-  />
-
-  <button type="submit">Submit</button>
-</form>
+<div class="getAllClass">
+  <li>Class : <text src={formClassData.name} /></li>
+  <li>Description: <text src={formClassData.desricption} /></li>
+  <li>Id : <text src={formClassData.studentIds} /></li>
+</div>
 
 <style>
   form {
     display: flex;
     flex-direction: column;
     width: 250px;
+  }
+
+  .formAllClass {
+    border: 2px solid;
+    border-color: #323f6c;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+
+  .getAllClass {
+    border: 2px solid;
+    border-color: #323f6c;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
   }
 </style>
