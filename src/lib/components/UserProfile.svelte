@@ -35,7 +35,6 @@
 </script>
 
 <div class="name">
-  <h2></h2>
   <li>
     Picture Account: <img src={dataUser.picture_url} alt={dataUser.name} />
   </li>
