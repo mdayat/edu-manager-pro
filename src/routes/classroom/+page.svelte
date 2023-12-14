@@ -3,12 +3,14 @@
   import Sidebar from "../../lib/components/Sidebar.svelte";
 </script>
 
-<h1>this is groups</h1>
+<h1>This is classroom menu</h1>
 <Sidebar></Sidebar>
 <ClassroomForm></ClassroomForm>
 
 <style>
   h1 {
     text-align: center;
+    font-family: Arial;
+    color: #323f6c;
   }
 </style>

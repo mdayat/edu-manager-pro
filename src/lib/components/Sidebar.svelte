@@ -25,9 +25,9 @@
           <span class="line"></span>
         </div>
         <li class="item">
-          <a href="/groups" class="link flex">
+          <a href="/classroom" class="link flex">
             <i class="bx bx-group"></i>
-            <span>Groups</span>
+            <span>Classroom</span>
           </a>
         </li>
         <li class="item">
