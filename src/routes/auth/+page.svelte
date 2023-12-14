@@ -62,9 +62,11 @@
   }
   .container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    width: 100%;
     background-color: #f9fafb;
   }
   .container-div {
@@ -86,5 +88,6 @@
   }
   .container-div img {
     margin-bottom: 1rem;
+    width: 100%;
   }
 </style>
