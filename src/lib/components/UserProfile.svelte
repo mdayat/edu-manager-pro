@@ -34,8 +34,8 @@
   }
 </script>
 
-<div></div>
 <div class="name">
+  <h2></h2>
   <li>
     Picture Account: <img src={dataUser.picture_url} alt={dataUser.name} />
   </li>
@@ -65,5 +65,15 @@
     margin: auto;
     width: 100%;
     padding: 5px;
+    margin-top: 2%;
+  }
+
+  li {
+    font-family: sans-serif;
+    margin-bottom: 2%;
+  }
+
+  label {
+    font-family: sans-serif;
   }
 </style>

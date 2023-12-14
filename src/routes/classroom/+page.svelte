@@ -3,7 +3,7 @@
   import Sidebar from "../../lib/components/Sidebar.svelte";
 </script>
 
-<h1>This is groups class</h1>
+<h1>This is classroom menu</h1>
 <Sidebar></Sidebar>
 <ClassroomForm></ClassroomForm>
 

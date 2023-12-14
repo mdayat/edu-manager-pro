@@ -3,7 +3,7 @@
   import StudentForm from "../../lib/components/StudentForm.svelte";
 </script>
 
-<h1>this is student</h1>
+<h1>This is a student menu</h1>
 <Sidebar></Sidebar>
 <StudentForm></StudentForm>
 

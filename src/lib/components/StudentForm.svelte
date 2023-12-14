@@ -37,6 +37,7 @@
 </script>
 
 <div class="formStudent">
+  <h2>Submit a Student</h2>
   <form on:submit|preventDefault={handleSubmit}>
     <label for="name">Name:</label>
     <input type="text" id="name" bind:value={formData.name} />
@@ -80,5 +81,16 @@
     margin: auto;
     width: 50%;
     padding: 10px;
+  }
+
+  label {
+    font-family: sans-serif;
+  }
+
+  h2 {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 0%;
   }
 </style>

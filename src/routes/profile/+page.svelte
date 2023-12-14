@@ -3,7 +3,7 @@
   import UserProfile from "../../lib/components/UserProfile.svelte";
 </script>
 
-<h1>this is profile</h1>
+<h1>This is a profile</h1>
 <Sidebar></Sidebar>
 <UserProfile></UserProfile>
 

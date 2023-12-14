@@ -1,6 +1,6 @@
-<!-- ClassroomForm.svelte -->
+<!-- CreateClassroomForm.svelte -->
 <script>
-  let formClassData = {
+  let formCreateClass = {
     name: "",
     description: "",
     studentIds: 0,
@@ -8,7 +8,7 @@
 
   async function handleSubmit() {
     const accessToken = localStorage.getItem("access_token");
-    console.log(formClassData);
+    console.log(formCreateClass);
     console.log(accessToken);
 
     const response = await fetch("/api/classrooms", {
@@ -17,7 +17,7 @@
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(formClassData),
+      body: JSON.stringify(formCreateClass),
     });
 
     // Handle the response as needed
@@ -33,29 +33,30 @@
   }
 </script>
 
-<div class="formAllClass">
+<div class="formCreateClass">
+  <h2>Create a Classroom</h2>
   <form on:submit|preventDefault={handleSubmit}>
     <label for="name">Name:</label>
-    <input type="text" id="name" bind:value={formClassData.name} />
+    <input type="text" id="name" bind:value={formCreateClass.name} />
 
     <label for="description">Description:</label>
     <input
       type="text"
       id="description"
-      bind:value={formClassData.description}
+      bind:value={formCreateClass.description}
     />
 
     <label for="id">Id:</label>
-    <input type="text" id="id" bind:value={formClassData.studentIds} />
+    <input type="text" id="id" bind:value={formCreateClass.studentIds} />
 
     <button type="submit">Submit</button>
   </form>
 </div>
 
-<div class="getAllClass">
-  <li>Class : <text src={formClassData.name} /></li>
-  <li>Description: <text src={formClassData.desricption} /></li>
-  <li>Id : <text src={formClassData.studentIds} /></li>
+<div class="getCreateClass">
+  <li>Class : <text src={formCreateClass.name} /></li>
+  <li>Description: <text src={formCreateClass.desricption} /></li>
+  <li>Id : <text src={formCreateClass.studentIds} /></li>
 </div>
 
 <style>
@@ -65,7 +66,7 @@
     width: 250px;
   }
 
-  .formAllClass {
+  .formCreateClass {
     border: 2px solid;
     border-color: #323f6c;
     margin: auto;
@@ -73,11 +74,23 @@
     padding: 10px;
   }
 
-  .getAllClass {
+  .getCreateClass {
     border: 2px solid;
     border-color: #323f6c;
     margin: auto;
     width: 50%;
     padding: 10px;
+    font-family: sans-serif;
+  }
+
+  label {
+    font-family: sans-serif;
+  }
+
+  h2 {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 0%;
   }
 </style>
