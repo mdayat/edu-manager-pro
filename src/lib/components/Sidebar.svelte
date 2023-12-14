@@ -1,62 +1,61 @@
 <nav id="navigation drawer" class="sidebar locked">
-    <div class="logo_items flex">
-      <span class="logo_name">EduManagerPro</span>
-      <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
-      <i class="bx bx-x" id="sidebar-close"></i>
+  <div class="logo_items flex">
+    <span class="logo_name">EduManagerPro</span>
+    <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+    <i class="bx bx-x" id="sidebar-close"></i>
+  </div>
+
+  <div class="menu_container">
+    <div class="menu_items">
+      <ul class="menu_item">
+        <div class="menu_title flex">
+          <span class="title">Menu</span>
+          <span class="line"></span>
+        </div>
+        <li class="item">
+          <a href="/dashboard" class="link flex">
+            <i class="bx bx-home-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="menu_item">
+        <div class="menu_title flex">
+          <span class="title">Admin</span>
+          <span class="line"></span>
+        </div>
+        <li class="item">
+          <a href="/groups" class="link flex">
+            <i class="bx bx-group"></i>
+            <span>Groups</span>
+          </a>
+        </li>
+        <li class="item">
+          <a href="/student" class="link flex">
+            <i class="bx bx-user"></i>
+            <span>Student</span>
+          </a>
+        </li>
+        <li class="item">
+          <a href="/profile" class="link flex">
+            <i class="bx bxs-user-account"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li class="item">
+          <a href="/" class="link flex">
+            <i class="bx bxs-user-account"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <div class="menu_container">
-      <div class="menu_items">
-        <ul class="menu_item">
-          <div class="menu_title flex">
-            <span class="title">Menu</span>
-            <span class="line"></span>
-          </div>
-          <li class="item">
-            <a href="/dashboard" class="link flex">
-              <i class="bx bx-home-alt"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-        </ul>
-        <ul class="menu_item">
-          <div class="menu_title flex">
-            <span class="title">Admin</span>
-            <span class="line"></span>
-          </div>
-          <li class="item">
-            <a href="/groups" class="link flex">
-              <i class="bx bx-group"></i>
-              <span>Groups</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="/student" class="link flex">
-              <i class="bx bx-user"></i>
-              <span>Student</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="/profile" class="link flex">
-              <i class="bx bxs-user-account"></i>
-              <span>Profile</span>
-            </a>
-          </li>
-          <li class="item">
-            <a href="/" class="link flex">
-              <i class="bx bxs-user-account"></i>
-              <span>Logout</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-
-  <!-- /* style kode tampilan dashboard */
+<!-- /* style kode tampilan dashboard */
   /* Import Google font - Poppins */ -->
-  <style>
+<style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
   * {
     margin: 0;
@@ -78,7 +77,7 @@
     left: 0;
     height: 100%;
     width: 190px;
-    background: #323F6C;
+    background: #323f6c;
     padding: 15px 10px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
     transition: all 0.4s ease;
@@ -89,8 +88,7 @@
   }
   .logo_name {
     font-size: 22px;
-    color: #FFFFFF;
-;
+    color: #ffffff;
     font-weight: 500px;
     transition: all 0.3s ease;
   }
@@ -106,7 +104,7 @@
   }
   #sidebar-close {
     display: none;
-    color:#FFFFFF;
+    color: #ffffff;
   }
   .menu_container {
     display: flex;
@@ -123,7 +121,7 @@
     position: relative;
     height: 50px;
     width: 55px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
   .menu_title .title {
     margin-left: 15px;
@@ -137,8 +135,7 @@
     height: 3px;
     width: 20px;
     border-radius: 25px;
-    background: #FFFFFF;
-;
+    background: #ffffff;
     transition: all 0.3s ease;
   }
   .menu_title .line {
@@ -152,12 +149,10 @@
     text-decoration: none;
     border-radius: 8px;
     margin-bottom: 8px;
-    color: #FFFFFF;
-;
+    color: #ffffff;
   }
   .link:hover {
-    background-color: #10AF13;
-;
+    background-color: #10af13;
   }
   .link span {
     white-space: nowrap;
