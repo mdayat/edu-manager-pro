@@ -11,8 +11,8 @@
 
   async function handleSubmit() {
     const accessToken = localStorage.getItem("access_token");
-    console.log(formData);
-    console.log(accessToken);
+    // console.log(formData);
+    // console.log(accessToken);
 
     const response = await fetch("/api/students", {
       method: "POST",
@@ -26,6 +26,15 @@
     // Handle the response as needed
     if (response.ok) {
       console.error("Student data submitted successfully!");
+      // Reset the form data
+      formData = {
+        name: "",
+        email: "",
+        age: 0,
+        gender: "male",
+        address: "",
+        payment_status: false,
+      };
     } else if (response.status === 401) {
       console.log("Unauthorized: Invalid access Token");
     } else if (response.status === 500) {
