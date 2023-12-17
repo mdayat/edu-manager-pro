@@ -34,8 +34,8 @@
                 .then((res) => {
                   return res.json();
                 })
-                .then((classrooms) => {
-                  resolve(classrooms);
+                .then((classroom) => {
+                  resolve(classroom);
                 });
             });
             return;
@@ -43,8 +43,8 @@
 
           return res.json();
         })
-        .then((classrooms) => {
-          resolve(classrooms);
+        .then((classroom) => {
+          resolve(classroom);
         });
     });
 
