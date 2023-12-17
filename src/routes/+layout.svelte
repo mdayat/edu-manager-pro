@@ -29,6 +29,8 @@
 {#if isLoading}
   <Loading />
 {:else}
-  <Navbar />
+  {#if pathname !== "/auth"}
+    <Navbar />
+  {/if}
   <slot />
 {/if}

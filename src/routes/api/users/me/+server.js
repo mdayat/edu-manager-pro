@@ -37,10 +37,10 @@ export const GET = ({ request }) => {
             );
           })
           .catch((err) => {
-            // Reject request when there is no user with the specified "id"
+            // Reject request when failed to get user
             resolve(
               new Response(JSON.stringify(err.message), {
-                status: 404,
+                status: 500,
                 headers: {
                   "Content-Type": "application/json",
                 },
