@@ -14,13 +14,14 @@
     const promise = new Promise((resolve, reject) => {
       const apiEndpoint = "/api/students";
       const accessToken = localStorage.getItem("access_token");
+      const encodedStudent = JSON.stringify(student);
 
       fetch(apiEndpoint, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(student),
+        body: encodedStudent,
       }).then((res) => {
         if (res.status === 500) {
           reject(res.status);
@@ -34,7 +35,7 @@
               headers: {
                 Authorization: `Bearer ${newAccessToken}`,
               },
-              body: JSON.stringify(student),
+              body: encodedStudent,
             }).then((res) => {
               resolve(res.status);
             });
@@ -51,9 +52,7 @@
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createStudent().then((res) => {
-      console.log(res);
-    });
+    createStudent();
   };
 </script>
 

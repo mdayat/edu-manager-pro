@@ -1,7 +1,10 @@
 <script>
+  import Form from "../lib/components/Classroom/Form.svelte";
 </script>
 
-<main></main>
+<main>
+  <Form />
+</main>
 
 <style>
   main {
