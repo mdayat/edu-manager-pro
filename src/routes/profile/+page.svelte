@@ -31,6 +31,7 @@
                   resolve(user);
                 });
             });
+            return;
           }
 
           return res.json();
