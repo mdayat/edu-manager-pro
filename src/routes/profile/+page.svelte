@@ -1,10 +1,8 @@
 <script>
-  import Sidebar from "../../lib/components/Sidebar.svelte";
   import UserProfile from "../../lib/components/UserProfile.svelte";
 </script>
 
 <h1>This is a profile</h1>
-<Sidebar></Sidebar>
 <UserProfile></UserProfile>
 
 <style>

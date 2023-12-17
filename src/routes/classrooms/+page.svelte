@@ -1,10 +1,8 @@
 <script>
   import ClassroomForm from "../../lib/components/ClassroomForm.svelte";
-  import Sidebar from "../../lib/components/Sidebar.svelte";
 </script>
 
 <h1>This is classroom menu</h1>
-<Sidebar></Sidebar>
 <ClassroomForm></ClassroomForm>
 
 <style>

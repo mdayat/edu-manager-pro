@@ -1,6 +1,5 @@
 <script>
   import { handleInvalidAccessToken, logOut } from "../lib/auth";
-  import Sidebar from "../lib/components/Sidebar.svelte";
 
   let isGetUserClicked = false;
 
@@ -88,8 +87,6 @@
 <div class="logout_button">
   <button type="button" on:click={logOut}>Log Out</button>
 </div>
-
-<Sidebar></Sidebar>
 
 <style>
   /* style untuk tombol logout */
