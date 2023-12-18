@@ -129,6 +129,7 @@
       Pilih students yang akan didaftarkan ketika pembuatan classroom, minimal
       pilih satu:
     </legend>
+
     {#await getStudents()}
       <p>LOADING...</p>
     {:then students}
@@ -244,4 +245,5 @@
   button:hover {
     background-color: #2980b9;
   }
+
 </style>
