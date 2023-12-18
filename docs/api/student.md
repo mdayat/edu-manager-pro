@@ -91,7 +91,8 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `500 Internal Server Error`: The server failed to get all students
+3. `404 Not Found`: Students are empty
+4. `500 Internal Server Error`: The server failed to get all students
 
 ## Get Student
 

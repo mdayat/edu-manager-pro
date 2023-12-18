@@ -85,7 +85,8 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `500 Internal Server Error`: The server failed to get all classrooms
+3. `404 Not Found`: Classrooms are empty
+4. `500 Internal Server Error`: The server failed to get all classrooms
 
 ## Get Classroom
 
@@ -134,7 +135,7 @@ When a request fails, the server will return its error message in the response b
 
    > **Note:** The client should handle this response manually to generate a new pair of access and refresh token. Please refer to [refresh](auth.md#refresh) endpoint.
 
-3. `404 Not Found`: The classroom is not found
+3. `404 Not Found`: Classrooms are empty
 4. `500 Internal Server Error`: The server failed to get the classroom
 
 ## Update Classroom

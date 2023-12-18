@@ -154,7 +154,7 @@
   label {
     display: block;
     margin-bottom: 5px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .payment-status {
@@ -181,13 +181,13 @@
     border: none;
     margin: 0;
     padding: 0;
-    margin-bottom: 15px; /* Add margin between the fieldset and the next element */
-    display: flex; /* Use flexbox to arrange items horizontally */
-    align-items: center; /* Center items vertically within the fieldset */
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
   }
 
   legend {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
   }

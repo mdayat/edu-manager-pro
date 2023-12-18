@@ -107,7 +107,7 @@
   }
 
   h1 {
-    color: salmon;
+    color: black;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -149,8 +149,8 @@
 
   /* Make student ID smaller */
   .student-id {
-    font-size: 0.8em; /* Adjust the font size as needed */
-    color: #777; /* Change the color as needed */
+    font-size: 0.8em; 
+    color: #777;
   }
 
   .button-container {
