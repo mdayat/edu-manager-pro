@@ -57,6 +57,7 @@
 </script>
 
 <form action="" method="post" on:submit={handleSubmit}>
+  <h2>Input Your Student</h2>
   <label for="name">Name</label>
   <input
     type="text"
@@ -121,19 +122,90 @@
     bind:value={student.address}
   ></textarea>
 
-  <label for="payment_status">Payment Status</label>
-  <input
-    type="checkbox"
-    id="payment_status"
-    name="payment_status"
-    bind:checked={student.payment_status}
-  />
+  <fieldset class="payment-status">
+    <label for="payment_status">Payment Status</label>
+    <input
+      type="checkbox"
+      id="payment_status"
+      name="payment_status"
+      bind:checked={student.payment_status}
+    />
+  </fieldset>
 
   <button type="submit">Submit</button>
 </form>
 
 <style>
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 13px;
+  }
   form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .payment-status {
+    display: flex;
+    align-items: center;
     margin-bottom: 15px;
+  }
+
+  input[type="checkbox"] {
+    margin-left: 5px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  legend {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #2980b9;
   }
 </style>
