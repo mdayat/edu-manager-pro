@@ -49,55 +49,22 @@
 
     return promise;
   };
-
-  const deleteStudent = (event) => {
-    const studentId = event.currentTarget.id;
-    const apiEndpoint = `/api/students/${studentId}`;
-    const accessToken = localStorage.getItem("access_token");
-
-    fetch(apiEndpoint, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    }).then((res) => {
-      if (res.status === 500) {
-        alert(`Failed to delete a student with the id of ${studentId}`);
-        return;
-      }
-
-      if (res.status === 401) {
-        handleInvalidAccessToken().then((newAccessToken) => {
-          fetch(apiEndpoint, {
-            method: "DELETE",
-            headers: {
-              Authorization: "Bearer " + newAccessToken,
-            },
-          }).then(() => {
-            window.location.reload();
-          });
-        });
-        return;
-      }
-
-      window.location.reload();
-    });
-  };
 </script>
 
 <main>
   <div class="input-student">
     <CreateForm />
   </div>
-
+  
   <div class="student-list">
     <div class="student-list__title">
       <h1>List of students</h1>
     </div>
-
-    {#await getStudents()}
-      <p>LOADING...</p>
-    {:then students}
+    
+    
+      {#await getStudents()}
+        <p>LOADING...</p>
+      {:then students}
       <div class="student-list__card">
         <ul>
           {#each students as student}
@@ -114,25 +81,21 @@
               <a href={`/students/${student.id}`}>See the Details</a>
 
               <div class="button-container">
-                <button type="button" class="edit-button">Edit</button>
-                <button
-                  type="button"
-                  id={student.id}
-                  class="delete-button"
-                  on:click={deleteStudent}>Delete</button
-                >
+                <button class="edit-button">Edit</button>
+                <button class="delete-button">Delete</button>
               </div>
             </li>
           {/each}
         </ul>
       </div>
-    {:catch errStatusCode}
-      {#if errStatusCode === 500}
-        <p>Ooops... Something went wrong!</p>
-      {:else if errStatusCode === 404}
-        <p>There is no students to show</p>
-      {/if}
-    {/await}
+      {:catch errStatusCode}
+        {#if errStatusCode === 500}
+          <p>Ooops... Something went wrong!</p>
+        {:else if errStatusCode === 404}
+          <p>There is no students to show</p>
+        {/if}
+      {/await}
+    
   </div>
 </main>
 
@@ -186,13 +149,13 @@
 
   /* Make student ID smaller */
   .student-id {
-    font-size: 0.8em;
+    font-size: 0.8em; 
     color: #777;
   }
 
   .button-container {
     display: flex;
-    justify-content: left;
+    justify-content:left;
     margin-top: 10px;
   }
 
@@ -218,10 +181,7 @@
     margin: auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(300px, 1fr)
-    ); /* Two columns, each with a minimum width of 300px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Two columns, each with a minimum width of 300px */
     grid-gap: 20px; /* Adjust the gap between cards */
   }
 
