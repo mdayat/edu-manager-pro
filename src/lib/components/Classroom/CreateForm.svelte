@@ -102,33 +102,35 @@
 </script>
 
 <form action="" method="post" on:submit={handleSubmit}>
-  <label for="name">Name</label>
-  <input
-    type="text"
-    id="name"
-    name="name"
-    autocomplete="off"
-    required
-    bind:value={classroom.name}
-  />
-
-  <label for="description">Description</label>
-  <textarea
-    id="description"
-    name="description"
-    autocomplete="off"
-    cols="30"
-    rows="10"
-    required
-    bind:value={classroom.description}
-  ></textarea>
+  <div class="form_name">
+    <label for="name">Name :</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      autocomplete="off"
+      required
+      bind:value={classroom.name}
+    />
+  </div>
+  <div class="form_description">
+    <label for="description">Description :</label>
+    <textarea
+      id="description"
+      name="description"
+      autocomplete="off"
+      cols="30"
+      rows="10"
+      required
+      bind:value={classroom.description}
+    ></textarea>
+  </div>
 
   <fieldset>
     <legend>
       Pilih students yang akan didaftarkan ketika pembuatan classroom, minimal
       pilih satu:
     </legend>
-
     {#await getStudents()}
       <p>LOADING...</p>
     {:then students}
@@ -165,5 +167,14 @@
     padding: 16px;
     border-radius: 12px;
     margin: 16px 0;
+  }
+
+  .form_description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    display: inline;
   }
 </style>

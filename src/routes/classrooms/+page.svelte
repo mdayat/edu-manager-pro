@@ -1,5 +1,6 @@
 <script>
   import { handleInvalidAccessToken } from "../../lib/auth";
+  import Classroom from "../../lib/components/Classroom/CreateForm.svelte";
 
   const getClassrooms = () => {
     const promise = new Promise((resolve, reject) => {
@@ -51,6 +52,8 @@
 </script>
 
 <main>
+  <Classroom></Classroom>
+
   <h1>List of classrooms</h1>
 
   {#await getClassrooms()}
@@ -88,6 +91,7 @@
     color: salmon;
     font-size: 24px;
     font-weight: bold;
+    margin-top: 10px;
   }
 
   .card {

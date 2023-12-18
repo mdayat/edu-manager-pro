@@ -132,4 +132,8 @@
   <button type="submit">Submit</button>
 </form>
 
-<style></style>
+<style>
+  form {
+    margin-bottom: 15px;
+  }
+</style>
