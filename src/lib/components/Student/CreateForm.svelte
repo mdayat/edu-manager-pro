@@ -10,53 +10,43 @@
     payment_status: false,
   };
 
-  const createStudent = () => {
-    const promise = new Promise((resolve, reject) => {
-      const apiEndpoint = "/api/students";
-      const accessToken = localStorage.getItem("access_token");
-      const encodedStudent = JSON.stringify(student);
-
-      fetch(apiEndpoint, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: encodedStudent,
-      }).then((res) => {
-        if (res.status === 500) {
-          reject(res.status);
-          return;
-        }
-
-        if (res.status === 401) {
-          handleInvalidAccessToken().then((newAccessToken) => {
-            fetch(apiEndpoint, {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${newAccessToken}`,
-              },
-              body: encodedStudent,
-            }).then((res) => {
-              resolve(res.status);
-            });
-          });
-          return;
-        }
-
-        resolve(res.status);
-      });
-    });
-
-    return promise;
-  };
-
-  const handleSubmit = (event) => {
+  const createStudent = (event) => {
     event.preventDefault();
-    createStudent();
+    const apiEndpoint = "/api/students";
+    const accessToken = localStorage.getItem("access_token");
+    const encodedStudent = JSON.stringify(student);
+
+    fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: encodedStudent,
+    }).then((res) => {
+      if (res.status === 500) {
+        alert(`Failed to create new student. Error code ${res.status}`);
+        return;
+      }
+      if (res.status === 401) {
+        handleInvalidAccessToken().then((newAccessToken) => {
+          fetch(apiEndpoint, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${newAccessToken}`,
+            },
+            body: encodedStudent,
+          }).then(() => {
+            window.location.reload();
+          });
+        });
+        return;
+      }
+      window.location.reload();
+    });
   };
 </script>
 
-<form action="" method="post" on:submit={handleSubmit}>
+<form action="" method="post" on:submit={createStudent}>
   <h2>Input Your Student</h2>
   <label for="name">Name</label>
   <input
