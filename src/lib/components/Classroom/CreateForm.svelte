@@ -7,6 +7,46 @@
     studentIds: [],
   };
 
+  const createClassroom = () => {
+    const promise = new Promise((resolve, reject) => {
+      const apiEndpoint = "/api/classrooms";
+      const accessToken = localStorage.getItem("access_token");
+      const encodedClassroom = JSON.stringify(classroom);
+
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: encodedClassroom,
+      }).then((res) => {
+        if (res.status === 500) {
+          reject(res.status);
+          return;
+        }
+
+        if (res.status === 401) {
+          handleInvalidAccessToken().then((newAccessToken) => {
+            fetch(apiEndpoint, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+              body: encodedClassroom,
+            }).then((res) => {
+              resolve(res.status);
+            });
+          });
+          return;
+        }
+
+        resolve(res.status);
+      });
+    });
+
+    return promise;
+  };
+
   const getStudents = () => {
     const promise = new Promise((resolve, reject) => {
       const apiEndpoint = "/api/students";
@@ -55,45 +95,13 @@
     return promise;
   };
 
-  const createClassroom = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const apiEndpoint = "/api/classrooms";
-    const accessToken = localStorage.getItem("access_token");
-    const encodedClassroom = JSON.stringify(classroom);
-
-    fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: encodedClassroom,
-    }).then((res) => {
-      if (res.status === 500) {
-        alert(`Failed to create new classroom. Error code: ${res.status}`);
-        return;
-      }
-
-      if (res.status === 401) {
-        handleInvalidAccessToken().then((newAccessToken) => {
-          fetch(apiEndpoint, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${newAccessToken}`,
-            },
-            body: encodedClassroom,
-          }).then(() => {
-            window.location.reload();
-          });
-        });
-        return;
-      }
-
-      window.location.reload();
-    });
+    createClassroom();
   };
 </script>
 
-<form action="" method="post" on:submit={createClassroom}>
+<form action="" method="post" on:submit={handleSubmit}>
   <h2>Input Class</h2>
   <label for="name">Name</label>
   <input
@@ -237,4 +245,5 @@
   button:hover {
     background-color: #2980b9;
   }
+
 </style>

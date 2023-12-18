@@ -1,7 +1,10 @@
 <script>
+  import ClassroomList from "../lib/components/Classroom/ClassroomList.svelte";
 </script>
 
-<main></main>
+<main>
+  <ClassroomList />
+</main>
 
 <style>
   main {

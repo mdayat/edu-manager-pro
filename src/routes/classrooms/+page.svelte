@@ -1,6 +1,6 @@
 <script>
   import { handleInvalidAccessToken } from "../../lib/auth";
-  import CreateForm from "../../lib/components/Classroom/CreateForm.svelte";
+  import CreateForm from "../../lib/components/Classroom/CreateForm.svelte"
 
   const getClassrooms = () => {
     const promise = new Promise((resolve, reject) => {
@@ -49,40 +49,6 @@
 
     return promise;
   };
-
-  const deleteClassroom = (event) => {
-    const classroomId = event.currentTarget.id;
-    const apiEndpoint = `/api/classrooms/${classroomId}`;
-    const accessToken = localStorage.getItem("access_token");
-
-    fetch(apiEndpoint, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    }).then((res) => {
-      if (res.status === 500) {
-        alert(`Failed to delete a student with the id of ${classroomId}`);
-        return;
-      }
-
-      if (res.status === 401) {
-        handleInvalidAccessToken().then((newAccessToken) => {
-          fetch(apiEndpoint, {
-            method: "DELETE",
-            headers: {
-              Authorization: "Bearer " + newAccessToken,
-            },
-          }).then(() => {
-            window.location.reload();
-          });
-        });
-        return;
-      }
-
-      window.location.reload();
-    });
-  };
 </script>
 
 <main>
@@ -96,34 +62,30 @@
         <h1>List of classrooms</h1>
       </div>
 
+
       {#await getClassrooms()}
         <p>LOADING...</p>
       {:then classrooms}
-        <div class="class-list__card">
-          <ul>
-            {#each classrooms as classroom}
-              <li class="card">
-                <h3>{classroom.name}</h3>
-                <p class="class-id">Classroom ID: {classroom.id}</p>
-                <p>
-                  Number of Enrolled Students: {classroom.numberOfEnrolledStudents}
-                </p>
-
-                <a href={`/classrooms/${classroom.id}`}>See the Details</a>
-
-                <div class="button-container">
-                  <button type="button" class="edit-button">Edit</button>
-                  <button
-                    type="button"
-                    id={classroom.id}
-                    class="delete-button"
-                    on:click={deleteClassroom}>Delete</button
-                  >
-                </div>
-              </li>
-            {/each}
-          </ul>
-        </div>
+      <div class="class-list__card">
+        <ul>
+          {#each classrooms as classroom}
+            <li class="card">
+              <h3>{classroom.name}</h3>
+              <p class="class-id">Classroom ID: {classroom.id}</p>
+              <p>
+                Number of Enrolled Students: {classroom.numberOfEnrolledStudents}
+              </p>
+    
+              <a href={`/classrooms/${classroom.id}`}>See the Details</a>
+              
+              <div class="button-container">
+                <button class="edit-button">Edit</button>
+                <button class="delete-button">Delete</button>
+              </div>
+            </li>
+          {/each}
+        </ul>
+      </div>
       {:catch errStatusCode}
         {#if errStatusCode === 500}
           <p>Ooops... Something went wrong!</p>
@@ -133,6 +95,7 @@
       {/await}
     </div>
   </div>
+
 </main>
 
 <style>
@@ -190,7 +153,7 @@
 
   .button-container {
     display: flex;
-    justify-content: left;
+    justify-content:left;
     margin-top: 10px;
   }
 
@@ -216,10 +179,7 @@
     margin: auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(300px, 1fr)
-    ); /* Two columns, each with a minimum width of 300px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Two columns, each with a minimum width of 300px */
     grid-gap: 20px; /* Adjust the gap between cards */
   }
 

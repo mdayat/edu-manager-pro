@@ -10,45 +10,53 @@
     payment_status: false,
   };
 
-  const createStudent = (event) => {
-    event.preventDefault();
-    const apiEndpoint = "/api/students";
-    const accessToken = localStorage.getItem("access_token");
-    const encodedStudent = JSON.stringify(student);
+  const createStudent = () => {
+    const promise = new Promise((resolve, reject) => {
+      const apiEndpoint = "/api/students";
+      const accessToken = localStorage.getItem("access_token");
+      const encodedStudent = JSON.stringify(student);
 
-    fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: encodedStudent,
-    }).then((res) => {
-      if (res.status === 500) {
-        alert(`Failed to create new student. Error code ${res.status}`);
-        return;
-      }
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: encodedStudent,
+      }).then((res) => {
+        if (res.status === 500) {
+          reject(res.status);
+          return;
+        }
 
-      if (res.status === 401) {
-        handleInvalidAccessToken().then((newAccessToken) => {
-          fetch(apiEndpoint, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${newAccessToken}`,
-            },
-            body: encodedStudent,
-          }).then(() => {
-            window.location.reload();
+        if (res.status === 401) {
+          handleInvalidAccessToken().then((newAccessToken) => {
+            fetch(apiEndpoint, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+              body: encodedStudent,
+            }).then((res) => {
+              resolve(res.status);
+            });
           });
-        });
-        return;
-      }
+          return;
+        }
 
-      window.location.reload();
+        resolve(res.status);
+      });
     });
+
+    return promise;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    createStudent();
   };
 </script>
 
-<form action="" method="post" on:submit={createStudent}>
+<form action="" method="post" on:submit={handleSubmit}>
   <h2>Input Your Student</h2>
   <label for="name">Name</label>
   <input
@@ -146,7 +154,7 @@
   label {
     display: block;
     margin-bottom: 5px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .payment-status {
@@ -179,13 +187,13 @@
   }
 
   legend {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   input[type="radio"] {
-    margin-right: 5px;
+  margin-right: 5px;
   }
 
   button {
