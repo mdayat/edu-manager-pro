@@ -63,13 +63,16 @@
 
       <div class="classroom-info">
         <p class="info-item">
-          <span class="info-label">Classroom Name:</span> {classroom.name}
+          <span class="info-label">Classroom Name:</span>
+          {classroom.name}
         </p>
         <p class="info-item">
-          <span class="info-label">Classroom Description:</span> {classroom.description}
+          <span class="info-label">Classroom Description:</span>
+          {classroom.description}
         </p>
         <p class="info-item">
-          <span class="info-label">Number of Enrolled Students:</span> {classroom.enrolledStudents.length}
+          <span class="info-label">Number of Enrolled Students:</span>
+          {classroom.enrolledStudents.length}
         </p>
       </div>
 
@@ -82,8 +85,12 @@
               <p class="student-id">Student ID: {student.id}</p>
               <p class="student-email">Student Email: {student.email}</p>
               <p class="student-age">Student Age: {student.age}</p>
-              <p class="payment-status">Student Payment Status: {student.payment_status}</p>
-              <a href={`/students/${student.id}`} class="details-link">See Details</a>
+              <p class="payment-status">
+                Student Payment Status: {student.payment_status}
+              </p>
+              <a href={`/students/${student.id}`} class="details-link"
+                >See Details</a
+              >
             </li>
           {/each}
         </ul>
@@ -208,4 +215,3 @@
     margin-top: 20px;
   }
 </style>
-
