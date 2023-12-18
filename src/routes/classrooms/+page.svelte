@@ -49,6 +49,40 @@
 
     return promise;
   };
+
+  const deleteClassroom = (event) => {
+    const classroomId = event.currentTarget.id;
+    const apiEndpoint = `/api/classrooms/${classroomId}`;
+    const accessToken = localStorage.getItem("access_token");
+
+    fetch(apiEndpoint, {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }).then((res) => {
+      if (res.status === 500) {
+        alert(`Failed to delete a student with the id of ${classroomId}`);
+        return;
+      }
+
+      if (res.status === 401) {
+        handleInvalidAccessToken().then((newAccessToken) => {
+          fetch(apiEndpoint, {
+            method: "DELETE",
+            headers: {
+              Authorization: "Bearer " + newAccessToken,
+            },
+          }).then(() => {
+            window.location.reload();
+          });
+        });
+        return;
+      }
+
+      window.location.reload();
+    });
+  };
 </script>
 
 <main>
@@ -78,8 +112,13 @@
                 <a href={`/classrooms/${classroom.id}`}>See the Details</a>
 
                 <div class="button-container">
-                  <button class="edit-button">Edit</button>
-                  <button class="delete-button">Delete</button>
+                  <button type="button" class="edit-button">Edit</button>
+                  <button
+                    type="button"
+                    id={classroom.id}
+                    class="delete-button"
+                    on:click={deleteClassroom}>Delete</button
+                  >
                 </div>
               </li>
             {/each}
