@@ -25,19 +25,25 @@ const getStudents = (teacherId) => {
       .eq("teacher_id", teacherId)
       .then((res) => {
         if (res.status === 200) {
-          const students = res.data.map((student) => {
-            return {
-              id: student.id,
-              name: student.name,
-              email: student.email,
-              age: student.age,
-              payment_status: student.payment_status,
-              numberOfEnrolledClassrooms:
-                student.classroom.length !== 0 ? student.classroom[0].count : 0,
-            };
-          });
+          if (res.data.length !== 0) {
+            const students = res.data.map((student) => {
+              return {
+                id: student.id,
+                name: student.name,
+                email: student.email,
+                age: student.age,
+                payment_status: student.payment_status,
+                numberOfEnrolledClassrooms:
+                  student.classroom.length !== 0
+                    ? student.classroom[0].count
+                    : 0,
+              };
+            });
 
-          resolve(students);
+            resolve(students);
+          } else {
+            resolve(res.data);
+          }
         } else {
           reject(res.error);
         }

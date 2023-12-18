@@ -106,13 +106,25 @@ export const GET = ({ request }) => {
       .then((token) => {
         getClassrooms(token.sub)
           .then((classrooms) => {
-            resolve(
-              new Response(JSON.stringify(classrooms), {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }),
-            );
+            if (classrooms.length !== 0) {
+              resolve(
+                new Response(JSON.stringify(classrooms), {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }),
+              );
+            } else {
+              const message = "There is no Classrooms";
+              resolve(
+                new Response(JSON.stringify(message), {
+                  status: 404,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }),
+              );
+            }
           })
           .catch((err) => {
             // Reject request when failed to get all classrooms

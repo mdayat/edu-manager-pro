@@ -1,9 +1,9 @@
 <script>
   import { handleInvalidAccessToken } from "../../lib/auth";
 
-  const getUser = () => {
+  const getClassrooms = () => {
     const promise = new Promise((resolve, reject) => {
-      const apiEndpoint = "/api/users/me";
+      const apiEndpoint = "/api/classrooms";
       const accessToken = localStorage.getItem("access_token");
 
       fetch(apiEndpoint, {
@@ -13,6 +13,11 @@
       })
         .then((res) => {
           if (res.status === 500) {
+            reject(res.status);
+            return;
+          }
+
+          if (res.status === 404) {
             reject(res.status);
             return;
           }
@@ -27,8 +32,8 @@
                 .then((res) => {
                   return res.json();
                 })
-                .then((user) => {
-                  resolve(user);
+                .then((classrooms) => {
+                  resolve(classrooms);
                 });
             });
             return;
@@ -36,8 +41,8 @@
 
           return res.json();
         })
-        .then((user) => {
-          resolve(user);
+        .then((classrooms) => {
+          resolve(classrooms);
         });
     });
 
@@ -46,19 +51,29 @@
 </script>
 
 <main>
-  {#await getUser()}
+  <h1>List of classrooms</h1>
+
+  {#await getClassrooms()}
     <p>LOADING...</p>
-  {:then user}
-    <p>Account Id: {user.id}</p>
-    <p>Account Email: {user.email}</p>
-    <p>Account Name: {user.name}</p>
-    <p>Account Picture: {user.pictureUrl}</p>
-    <p>
-      Your Picture Looks Like: <img src={user.pictureUrl} alt={user.name} />
-    </p>
+  {:then classrooms}
+    <ul>
+      {#each classrooms as classroom}
+        <li class="card">
+          <p>Classroom ID: {classroom.id}</p>
+          <p>Classroom Name: {classroom.name}</p>
+          <p>
+            Number of Enrolled Students: {classroom.numberOfEnrolledStudents}
+          </p>
+
+          <a href={`/classrooms/${classroom.id}`}>See the Details</a>
+        </li>
+      {/each}
+    </ul>
   {:catch errStatusCode}
     {#if errStatusCode === 500}
       <p>Ooops... Something went wrong!</p>
+    {:else if errStatusCode === 404}
+      <p>There is no classrooms to show</p>
     {/if}
   {/await}
 </main>
@@ -67,5 +82,18 @@
   main {
     margin-left: calc(210px + 48px);
     margin-top: 32px;
+  }
+
+  h1 {
+    color: salmon;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .card {
+    background-color: #ddd;
+    width: fit-content;
+    padding: 16px;
+    border-radius: 12px;
   }
 </style>

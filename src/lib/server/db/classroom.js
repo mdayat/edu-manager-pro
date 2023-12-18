@@ -70,15 +70,19 @@ const getClassrooms = (teacherId) => {
       .eq("teacher_id", teacherId)
       .then((res) => {
         if (res.status === 200) {
-          const classrooms = res.data.map((classroom) => {
-            return {
-              id: classroom.id,
-              name: classroom.name,
-              numberOfEnrolledStudents: classroom.student[0].count,
-            };
-          });
+          if (res.data.length !== 0) {
+            const classrooms = res.data.map((classroom) => {
+              return {
+                id: classroom.id,
+                name: classroom.name,
+                numberOfEnrolledStudents: classroom.student[0].count,
+              };
+            });
 
-          resolve(classrooms);
+            resolve(classrooms);
+          } else {
+            resolve(res.data);
+          }
         } else {
           reject(res.error);
         }

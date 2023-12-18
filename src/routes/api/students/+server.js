@@ -101,13 +101,25 @@ export const GET = ({ request }) => {
       .then((token) => {
         getStudents(token.sub)
           .then((students) => {
-            resolve(
-              new Response(JSON.stringify(students), {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }),
-            );
+            if (students.length !== 0) {
+              resolve(
+                new Response(JSON.stringify(students), {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }),
+              );
+            } else {
+              const message = "There is no Students";
+              resolve(
+                new Response(JSON.stringify(message), {
+                  status: 404,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }),
+              );
+            }
           })
           .catch((err) => {
             // Reject request when failed to get all student

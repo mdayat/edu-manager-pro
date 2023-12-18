@@ -1,5 +1,7 @@
 <script>
+  import "../app.css";
   import Loading from "../lib/components/Loading.svelte";
+  import Navbar from "../lib/layouts/Navbar.svelte";
   import { hasLoggedIn, loading } from "../lib/auth";
 
   let isLoading;
@@ -27,5 +29,8 @@
 {#if isLoading}
   <Loading />
 {:else}
+  {#if pathname !== "/auth"}
+    <Navbar />
+  {/if}
   <slot />
 {/if}
