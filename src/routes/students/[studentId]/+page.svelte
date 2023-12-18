@@ -63,25 +63,32 @@
 
       <div class="student-info">
         <p class="info-item">
-          <span class="info-label">Student Name:</span> {student.name}
+          <span class="info-label">Student Name:</span>
+          {student.name}
         </p>
         <p class="info-item">
-          <span class="info-label">Student Email:</span> {student.email}
+          <span class="info-label">Student Email:</span>
+          {student.email}
         </p>
         <p class="info-item">
-          <span class="info-label">Student Age:</span> {student.age}
+          <span class="info-label">Student Age:</span>
+          {student.age}
         </p>
         <p class="info-item">
-          <span class="info-label">Student Gender:</span> {student.gender}
+          <span class="info-label">Student Gender:</span>
+          {student.gender}
         </p>
         <p class="info-item">
-          <span class="info-label">Student Address:</span> {student.address}
+          <span class="info-label">Student Address:</span>
+          {student.address}
         </p>
         <p class="info-item">
-          <span class="info-label">Student Payment Status:</span> {student.payment_status}
+          <span class="info-label">Student Payment Status:</span>
+          {student.payment_status}
         </p>
         <p class="info-item">
-          <span class="info-label">Number of Enrolled Classrooms:</span> {student.enrolledClassrooms.length}
+          <span class="info-label">Number of Enrolled Classrooms:</span>
+          {student.enrolledClassrooms.length}
         </p>
       </div>
 
@@ -93,7 +100,9 @@
               <li class="classroom-card">
                 <p class="classroom-name">{classroom.name}</p>
                 <p class="classroom-id">Classroom ID: {classroom.id}</p>
-                <a href={`/classrooms/${classroom.id}`} class="details-link">See Details</a>
+                <a href={`/classrooms/${classroom.id}`} class="details-link"
+                  >See Details</a
+                >
               </li>
             {/each}
           </ul>

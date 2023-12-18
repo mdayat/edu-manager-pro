@@ -1,6 +1,6 @@
 <script>
-//   import { handleInvalidAccessToken } from "../../lib/auth";
-    import { handleInvalidAccessToken } from "../../auth";
+  //   import { handleInvalidAccessToken } from "../../lib/auth";
+  import { handleInvalidAccessToken } from "../../auth";
 
   const getClassrooms = () => {
     const promise = new Promise((resolve, reject) => {
@@ -56,30 +56,32 @@
     <div class="class-list">
       <div class="class-list__title">
         <h1>Welcome to EduManagerPro</h1>
-        <p>"EduManagerPro is an intuitive tool designed for teachers offering private classes, providing seamless class and student management to enhance organization and efficiency in their educational endeavors."</p>
+        <p>
+          "EduManagerPro is an intuitive tool designed for teachers offering
+          private classes, providing seamless class and student management to
+          enhance organization and efficiency in their educational endeavors."
+        </p>
       </div>
-
 
       {#await getClassrooms()}
         <p>LOADING...</p>
       {:then classrooms}
-      <div class="class-list__card">
-        <ul>
-          {#each classrooms as classroom}
-            <li class="card">
-              <h3>{classroom.name}</h3>
-              <p class="class-id">Classroom ID: {classroom.id}</p>
-              <!-- <p>Description : {classroom.description}</p> -->
-              <p>
-                Number of Enrolled Students: {classroom.numberOfEnrolledStudents}
-              </p>
-    
-              <a href={`/classrooms/${classroom.id}`}>See the Details</a>
-              
-            </li>
-          {/each}
-        </ul>
-      </div>
+        <div class="class-list__card">
+          <ul>
+            {#each classrooms as classroom}
+              <li class="card">
+                <h3>{classroom.name}</h3>
+                <p class="class-id">Classroom ID: {classroom.id}</p>
+                <!-- <p>Description : {classroom.description}</p> -->
+                <p>
+                  Number of Enrolled Students: {classroom.numberOfEnrolledStudents}
+                </p>
+
+                <a href={`/classrooms/${classroom.id}`}>See the Details</a>
+              </li>
+            {/each}
+          </ul>
+        </div>
       {:catch errStatusCode}
         {#if errStatusCode === 500}
           <p>Ooops... Something went wrong!</p>
@@ -89,7 +91,6 @@
       {/await}
     </div>
   </div>
-
 </main>
 
 <style>

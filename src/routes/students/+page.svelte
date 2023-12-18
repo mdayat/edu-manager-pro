@@ -55,16 +55,15 @@
   <div class="input-student">
     <CreateForm />
   </div>
-  
+
   <div class="student-list">
     <div class="student-list__title">
       <h1>List of students</h1>
     </div>
-    
-    
-      {#await getStudents()}
-        <p>LOADING...</p>
-      {:then students}
+
+    {#await getStudents()}
+      <p>LOADING...</p>
+    {:then students}
       <div class="student-list__card">
         <ul>
           {#each students as student}
@@ -88,14 +87,13 @@
           {/each}
         </ul>
       </div>
-      {:catch errStatusCode}
-        {#if errStatusCode === 500}
-          <p>Ooops... Something went wrong!</p>
-        {:else if errStatusCode === 404}
-          <p>There is no students to show</p>
-        {/if}
-      {/await}
-    
+    {:catch errStatusCode}
+      {#if errStatusCode === 500}
+        <p>Ooops... Something went wrong!</p>
+      {:else if errStatusCode === 404}
+        <p>There is no students to show</p>
+      {/if}
+    {/await}
   </div>
 </main>
 
@@ -149,13 +147,13 @@
 
   /* Make student ID smaller */
   .student-id {
-    font-size: 0.8em; 
+    font-size: 0.8em;
     color: #777;
   }
 
   .button-container {
     display: flex;
-    justify-content:left;
+    justify-content: left;
     margin-top: 10px;
   }
 
@@ -181,7 +179,10 @@
     margin: auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Two columns, each with a minimum width of 300px */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(300px, 1fr)
+    ); /* Two columns, each with a minimum width of 300px */
     grid-gap: 20px; /* Adjust the gap between cards */
   }
 
