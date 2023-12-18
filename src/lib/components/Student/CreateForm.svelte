@@ -154,7 +154,7 @@
   label {
     display: block;
     margin-bottom: 5px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   .payment-status {
@@ -187,13 +187,13 @@
   }
 
   legend {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   input[type="radio"] {
-    margin-right: 5px;
+  margin-right: 5px;
   }
 
   button {
