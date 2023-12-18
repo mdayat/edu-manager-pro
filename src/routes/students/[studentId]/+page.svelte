@@ -53,34 +53,21 @@
 </script>
 
 <main>
-  <h1>Details of student: {studentId}</h1>
+  <div class="student-list-detail">
 
-  {#await getStudent()}
+    {#await getStudent()}
     <p>LOADING...</p>
-  {:then student}
-    <a href="/students">Back</a>
+    {:then student}
+      <a href="/students">Back</a>
+      <p>Student Name: {student.name}</p>
+      <p>Student Email: {student.email}</p>
+      <p>Student Age: {student.age}</p>
+      <p>Student Gender: {student.gender}</p>
+      <p>Student Address: {student.address}</p>
+      <p>Student Payment Status: {student.payment_status}</p>
+      <p>Number of Enrolled Classrooms: {student.enrolledClassrooms.length}</p>
 
-    <p>
-      Student Name: {student.name}
-    </p>
-    <p>
-      Student Email: {student.email}
-    </p>
-    <p>
-      Student Age: {student.age}
-    </p>
-    <p>
-      Student Gender: {student.gender}
-    </p>
-    <p>
-      Student Address: {student.address}
-    </p>
-    <p>
-      Student Payment Status: {student.payment_status}
-    </p>
-    <p>
-      Number of Enrolled Classrooms: {student.enrolledClassrooms.length}
-    </p>
+  <h1>Details of student: {studentId}</h1>
 
     <div class="enrolled-classrooms-container">
       <h2>Enrolled Classrooms:</h2>
@@ -105,6 +92,7 @@
       <p>Student not found</p>
     {/if}
   {/await}
+</div>
 </main>
 
 <style>
@@ -114,14 +102,19 @@
   }
 
   h1 {
-    color: salmon;
     font-size: 24px;
     font-weight: bold;
+    margin-top: 50px;
+  }
+
+  h2 {
+    padding-left: 10px;
   }
 
   .enrolled-classrooms-container {
     margin-top: 24px;
   }
+
   .card-classroom {
     margin-top: 16px;
     background-color: #ddd;
@@ -129,4 +122,18 @@
     padding: 16px;
     border-radius: 12px;
   }
+
+  .student-list-detail{
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 50%;
+    margin: auto;
+  }
+
+  p {
+    margin: 10px;
+  }
+
 </style>

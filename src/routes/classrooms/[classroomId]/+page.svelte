@@ -54,7 +54,7 @@
 
 <main>
   <h1>Details of classroom: {classroomId}</h1>
-
+  <div class="clasroom-list-detail" > 
   {#await getClassroom()}
     <p>LOADING...</p>
   {:then classroom}
@@ -96,6 +96,8 @@
       <p>Classroom not found</p>
     {/if}
   {/await}
+</div>
+
 </main>
 
 <style>
@@ -105,9 +107,10 @@
   }
 
   h1 {
-    color: salmon;
     font-size: 24px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   .enrolled-students-container {
@@ -119,5 +122,18 @@
     width: fit-content;
     padding: 16px;
     border-radius: 12px;
+  }
+
+  .clasroom-list-detail{
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 50%;
+    margin: auto;
+  }
+
+  p{
+    margin: 10px;
   }
 </style>
