@@ -49,13 +49,13 @@
   {#await getUser()}
     <p>LOADING...</p>
   {:then user}
-  <div class="container">
-    <div class="profile-box">
-      <img src={user.pictureUrl} alt={user.name} class="profile"/>
-      <p>{user.name}</p>
-      <p>{user.email}</p>
+    <div class="container">
+      <div class="profile-box">
+        <img src={user.pictureUrl} alt={user.name} class="profile" />
+        <p>{user.name}</p>
+        <p>{user.email}</p>
+      </div>
     </div>
-  </div>
   {:catch errStatusCode}
     {#if errStatusCode === 500}
       <p>Ooops... Something went wrong!</p>
@@ -64,14 +64,14 @@
 </main>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400&display=swap");
 
   main {
     margin-left: calc(210px + 48px);
     margin-top: 32px;
   }
 
-  .container{
+  .container {
     width: 100%;
     height: 90vh;
     background-color: #fff;
@@ -79,8 +79,8 @@
     align-items: center;
     justify-content: center;
   }
-  
-  .profile-box{
+
+  .profile-box {
     background-color: #f9f9f9;
     text-align: center;
     padding: 90px 90px 50px 90px;
@@ -89,23 +89,23 @@
     box-shadow:
       0 10px 15px -3px rgba(0, 0, 0, 0.1),
       0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-.profile-box p {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 10px;
-  padding: 5px;
-}
+  }
+  .profile-box p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
 
-.profile-box img {
+  .profile-box img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background-color: #fff;
     margin-bottom: 20px;
-}
-.profile{
-  border: 6px solid white;
-}
+  }
+  .profile {
+    border: 6px solid white;
+  }
 </style>

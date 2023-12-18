@@ -102,29 +102,27 @@
 </script>
 
 <form action="" method="post" on:submit={handleSubmit}>
-  <div class="form_name">
-    <label for="name">Name :</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      autocomplete="off"
-      required
-      bind:value={classroom.name}
-    />
-  </div>
-  <div class="form_description">
-    <label for="description">Description :</label>
-    <textarea
-      id="description"
-      name="description"
-      autocomplete="off"
-      cols="30"
-      rows="10"
-      required
-      bind:value={classroom.description}
-    ></textarea>
-  </div>
+  <h2>Input Class</h2>
+  <label for="name">Name</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    autocomplete="off"
+    required
+    bind:value={classroom.name}
+  />
+
+  <label for="description">Description</label>
+  <textarea
+    id="description"
+    name="description"
+    autocomplete="off"
+    cols="30"
+    rows="10"
+    required
+    bind:value={classroom.description}
+  ></textarea>
 
   <fieldset>
     <legend>
@@ -161,20 +159,89 @@
 </form>
 
 <style>
-  .card {
-    background-color: #ddd;
-    width: fit-content;
-    padding: 16px;
-    border-radius: 12px;
-    margin: 16px 0;
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 13px;
+  }
+  form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .form_description {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 15px; /* Add margin between the fieldset and the next element */
+    display: flex; /* Use flexbox to arrange items horizontally */
+    align-items: center; /* Center items vertically within the fieldset */
+  }
+
+  legend {
+    font-weight: bold;
+    color: #333;
   }
 
   ul {
-    display: inline;
+    list-style: none;
+    padding: 0;
+  }
+
+  .card {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .card label {
+    margin-right: 10px;
+  }
+
+  .card input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  button {
+    padding: 10px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #2980b9;
   }
 </style>
