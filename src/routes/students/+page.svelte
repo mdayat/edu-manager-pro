@@ -1,5 +1,6 @@
 <script>
   import { handleInvalidAccessToken } from "../../lib/auth";
+  import Student from "../../lib/components/Student/CreateForm.svelte";
 
   const getStudents = () => {
     const promise = new Promise((resolve, reject) => {
@@ -51,6 +52,8 @@
 </script>
 
 <main>
+  <Student></Student>
+
   <h1>List of students</h1>
 
   {#await getStudents()}
